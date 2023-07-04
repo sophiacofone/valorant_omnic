@@ -14,10 +14,12 @@ venv.bak/
 dev_data.json
 pro1_data.json
 pro2_data.json
-parsing/__pycache__/norm_round_total.cpython-39.pyc
+parsing/__pycache__/
+parsing/csv
 pro1_data_norm_round_total.csv
 clean_data_norm_round_allf_dev_data.csv
 clean_data_norm_round_allf_pro1_data.csv
 clean_data_norm_round_allf_pro2_data.csv
 dev_data_norm_round_total.csv
 balanced_onehot.csv
+valorant_agent_streamer.xlsx
