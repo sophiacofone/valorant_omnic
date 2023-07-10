@@ -569,6 +569,9 @@ def create_norm_csv_spike(json_filename,csv_title):
     new_df['self_post_spike_longest_gun_secondary'] = new_df['self_post_spike_longest_gun_secondary'].fillna('none')
     new_df['self_pre_spike_longest_inv_state'] = new_df['self_pre_spike_longest_inv_state'].fillna('none')
     new_df['self_post_spike_longest_inv_state'] = new_df['self_post_spike_longest_inv_state'].fillna('none')
+    new_df['self_longest_inv_state'] = new_df['self_longest_inv_state'].fillna('none')
+    new_df['self_longest_gun_primary'] = new_df['self_longest_gun_primary'].fillna('none')
+    new_df['self_longest_gun_secondary'] = new_df['self_longest_gun_secondary'].fillna('none')
 
     clean_df = new_df.dropna()
     clean_df = clean_df.reset_index(drop=True)  
