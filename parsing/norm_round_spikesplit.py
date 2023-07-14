@@ -1,9 +1,10 @@
-# 7/4/23, Sophia Cofone, Omnic ML Project
-# Purpose of this script is to parse & normalize the data by round PRE POST SPIKE SPLIT
-# Works great with dev_data, pro1_data, and pro2_data
+# 7/14/23, Sophia Cofone, Omnic ML Project
+# Purpose of this script is to parse & normalize the data by round pre and post spike plant
+# also includes some data cleaning and feature engineering
+# Works with dev_data, pro1_data, and pro2_data
 # Code is pretty manual/hardcoded. If the strucutre of the data changes or features are added, the code will need to be updated/reviewed.
 
-# required imports
+### Required imports ###
 import pandas as pd
 
 def create_norm_csv_spike(json_filename,csv_title):
@@ -11,6 +12,7 @@ def create_norm_csv_spike(json_filename,csv_title):
     df = pd.read_json(json_filename)
 
     ### Drop the all cols besides 'statistics' and 'user_id' ###
+    # These cols either have redundant information, or information that isn't relevant for this analysis
     df_stats = df[['user_id','statistics']]
 
     ### Flattening the stats col by 1 level ###
@@ -19,13 +21,13 @@ def create_norm_csv_spike(json_filename,csv_title):
 
     ### Removing some cols we don't care about from the ROUND perspective ###
     # Keep in mind the 'totals', 'result' are from the MATCH perspective
-    # even though the map is from match perspective I need it so I am adding it in (similar to userID)
-    # weapon stuff is all from match perspective, so I am dropping (some exists in rounds data anyway)
+    # Even though the map is from match perspective I need it so I am adding it in (similar to userID)
+    # This weapon stuff is from match perspective (I gather other weapon info from round data)
     # I think its possible to do something with 'allies_onscreen', 'opponents_onscreen', and 'detections_totals' but I am dropping for now
     flat1_df_stats = flat1_df_stats.drop(['totals','score', 'allies','result', 'status','gametype','version','end_time','opponents','processed','ally_score','start_time','opponent_score','detections_totals','best_weapon_elims','most_used_primary_seconds','analysis_processed','most_used_secondary_seconds','best_weapon_type_elims','opponents_onscreen','allies_onscreen','analysis_status','player_totals','best_weapon_type','best_weapon','most_used_secondary','most_used_primary','best_weapon_type_elims'], axis=1)
 
     ### Flattening the player_ids col by 1 level ###
-    # this is getting all the teammates and opponents, as well as mapping the 'player' to an ally
+    # This is getting all the teammates and opponents, as well as mapping the 'player' to an ally
     # Create an empty list to hold the expanded player ids
     expanded_player_ids_list = []
 
@@ -81,6 +83,8 @@ def create_norm_csv_spike(json_filename,csv_title):
                         # Add the area to the set corresponding to the current map
                         map_areas[cur_map].add(sublist[1])
 
+    ### This function handles most of the "pre/post" spike split metrics ###
+    # needs to consider max, total, and avg
     def calculate_metrics(key, value, cur_player, new_row, spike_time):
         pre_spike_total = 0
         post_spike_total = 0
@@ -162,17 +166,21 @@ def create_norm_csv_spike(json_filename,csv_title):
         new_row[f'ally{cur_player}_pre_spike_longest_{key}'] = pre_spike_longest_item
         new_row[f'ally{cur_player}_post_spike_longest_{key}'] = post_spike_longest_item
 
+    ### Since we have charges I need to track when a player has a charge, and that charge goes down ###
     def calculate_ability_usage(cur_player, ability_charges, spike_time, identifier, new_row):
         pre_spike_total_ability_usage = 0
         post_spike_total_ability_usage = 0
 
         for i in range(len(ability_charges) - 1):
             ability_time = ability_charges[i + 1][0]
-            if ability_charges[i + 1][1] == 1:
+            current_charge = ability_charges[i + 1][1]
+            previous_charge = ability_charges[i][1]
+
+            if previous_charge > current_charge:
                 if spike_time is None or ability_time < spike_time:  # pre-spike or no spike
-                    pre_spike_total_ability_usage += 1
+                    pre_spike_total_ability_usage += previous_charge - current_charge
                 elif spike_time:  # post-spike
-                    post_spike_total_ability_usage += 1
+                    post_spike_total_ability_usage += previous_charge - current_charge
 
         new_row[f'ally{cur_player}_pre_spike_total_ability_usage_{identifier}'] = pre_spike_total_ability_usage
         new_row[f'ally{cur_player}_post_spike_total_ability_usage_{identifier}'] = post_spike_total_ability_usage
@@ -224,7 +232,7 @@ def create_norm_csv_spike(json_filename,csv_title):
             # get side
             side = new_row['round_info_ally_side']
             # get won 
-    #             won = new_row['round_info_round_won']
+            # won = new_row['round_info_round_won']
 
 
             for key, value in row['rounds'][round_number].items():
@@ -479,9 +487,6 @@ def create_norm_csv_spike(json_filename,csv_title):
                     identifier = key.split('_')[-1]  # extract the ability identifier from the key
                     calculate_ability_usage(cur_player, ability_charges, spike_time, identifier, new_row)
 
-            
-            
-            
             # Getting rid of cols that don't need 
             new_row.pop('rounds_alive', None)
             new_row.pop('rounds_phases', None)
@@ -578,5 +583,7 @@ def create_norm_csv_spike(json_filename,csv_title):
 
     clean_df.to_csv(csv_title, index=False)
 
-            
-
+### CREATING THE CSVs ###
+create_norm_csv_spike('parsing/dev_data.json', 'dev_data_norm_round_spikesplit.csv')
+create_norm_csv_spike('parsing/pro1_data.json', 'pro1_data_norm_round_spikesplit.csv')
+create_norm_csv_spike('parsing/pro2_data.json', 'pro2_data_norm_round_spikesplit.csv')
