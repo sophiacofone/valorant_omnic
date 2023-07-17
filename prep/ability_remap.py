@@ -1,11 +1,10 @@
 # 7/14/23, Sophia Cofone, Omnic ML Project
 # Purpose of this script is re-map the abilities according to the valorant_abilities sheet
 # Idea is to provide more context/information regarding what the ability does based on a specific character's kit
+# aka feature engineering
 
 ### Required imports ###
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 def map_abilities(json_filename,csv_title):
     df = pd.read_csv(json_filename)

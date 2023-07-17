@@ -1,6 +1,6 @@
 # 7/14/23, Sophia Cofone, Omnic ML Project
 # Purpose of this script is to parse & normalize the data by round pre and post spike plant
-# also includes some data cleaning and feature engineering
+# also includes some data cleaning feature engineering
 # Works with dev_data, pro1_data, and pro2_data
 # Code is pretty manual/hardcoded. If the strucutre of the data changes or features are added, the code will need to be updated/reviewed.
 
