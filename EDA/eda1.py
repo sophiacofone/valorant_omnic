@@ -2,18 +2,9 @@
 # Purpose of this script is EDA
 
 ### Required imports ###
-import json
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report, confusion_matrix
-from sklearn import tree
-import matplotlib.pyplot as plt
+import seaborn as sns
 
 ### Load Data ###
 
@@ -23,7 +14,7 @@ df2 = pd.read_csv('prep/csv/pro1_abilities.csv')
 df3 = pd.read_csv('prep/csv/dev_abilities.csv')
 
 # Concatenate the DataFrames vertically
-df = pd.concat([df1, df2], ignore_index=True)
+df = pd.concat([df1, df2, df3], ignore_index=True)
 
 ### Drop cols I don't need ###
 df = df.drop(['player','round_number'], axis=1)
