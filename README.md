@@ -6,8 +6,8 @@ The motivation behind this project is to try and prove (or disprove) common sent
 
 My goal is to formulate some of these claims into research questions, and use machine learning & data analysis to investigate them. The main questions I considered for this analysis are:
 
-1. What should player's focus on to win a round of Valorant?
-   - Are there certain characters, weapons, maps that are more likely to lead to a win?
+1. What should players focus on to win a round of Valorant?
+   - Are there certain characters, maps that are more likely to lead to a win?
    - Does this change depending on if you are attacking or defending?
    - Does this change depending on what point of the match you are in (pre or post spike plant)?
    - Does this change depending on what "role" you are playing as?
