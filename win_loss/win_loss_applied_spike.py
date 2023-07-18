@@ -1,3 +1,6 @@
+# 7/18/23, Sophia Cofone, Omnic ML Project
+# Purpose of this script is to run the decision tree models for the pre-post spike data
+
 from win_loss_model import d_tree, prune_dtree, f_importance, d_tree_tuning
 
 import pandas as pd

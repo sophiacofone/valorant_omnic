@@ -1,6 +1,7 @@
+# 7/18/23, Sophia Cofone, Omnic ML Project
+# Purpose of these functions are to make decision tree models for the W/L classification
+
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
@@ -59,7 +60,7 @@ def d_tree_tuning(X_train, y_train, X_test, y_test):
 
     return best_dtc
 
-def f_importance(dtc):
+def f_importance(dtc, X_train):
     feature_importances = pd.DataFrame(dtc.feature_importances_,
                                    index = X_train.columns,
                                    columns=['importance']).sort_values('importance', ascending=False)
@@ -72,37 +73,3 @@ def plot_feature_importance(feature_df):
     plt.xlabel('Importance')
     plt.title('Feature Importance')
     plt.show()
-
-### Load Data ###
-# Read the CSV file into DataFrame
-df = pd.read_csv('win_loss/csv/wl_alldf_prepro_data.csv')
-
-### Train Test Split ###
-X = df.drop('round_info_round_won', axis=1)
-y = df['round_info_round_won']
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
-
-### Scale the data ###
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-
-# untuned_dtree = d_tree(X_train,y_train,X_test,y_test)
-# tuned_dtree = d_tree_tuning(X_train, y_train, X_test, y_test)
-maxdepth_dtree = prune_dtree(X_train,y_train,X_test,y_test,6)
-
-feature_df = f_importance(maxdepth_dtree)
-top_30f = feature_df[:30]
-plot_feature_importance(top_30f)
-
-
-# fig, ax = plt.subplots(figsize=(20, 20)) 
-# tree.plot_tree(maxdepth_dtree, 
-#                feature_names=X_train.columns, 
-#                class_names=['Loss', 'Win'], 
-#                filled=True,
-#                rounded=True,
-#                ax=ax)
-
-# plt.show()
