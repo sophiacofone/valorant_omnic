@@ -8,7 +8,7 @@ import pandas as pd
 
 def map_abilities(json_filename,csv_title):
     df = pd.read_csv(json_filename)
-    abilities_df = pd.read_csv('prep/abilities.csv')
+    abilities_df = pd.read_csv('preprocess/abilities.csv')
 
     abilities_df['agent_name'] = abilities_df['agent_name'].str.lower()
     # Mapping dictionary
