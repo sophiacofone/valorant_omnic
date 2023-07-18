@@ -4,6 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import matplotlib.pyplot as plt
 
 def d_tree(X_train,y_train,X_test,y_test):
     dtc = DecisionTreeClassifier(random_state=1)
@@ -35,12 +36,6 @@ def prune_dtree(X_train,y_train,X_test,y_test,max_depth):
     
     return dtc
 
-def f_importance(dtc):
-    feature_importances = pd.DataFrame(dtc.feature_importances_,
-                                   index = X_train.columns,
-                                   columns=['importance']).sort_values('importance', ascending=False)
-    return feature_importances
-
 def d_tree_tuning(X_train, y_train, X_test, y_test):
     param_grid = {
         'min_samples_leaf': [1, 2, 3],  # Example values for min_samples_leaf
@@ -64,6 +59,19 @@ def d_tree_tuning(X_train, y_train, X_test, y_test):
 
     return best_dtc
 
+def f_importance(dtc):
+    feature_importances = pd.DataFrame(dtc.feature_importances_,
+                                   index = X_train.columns,
+                                   columns=['importance']).sort_values('importance', ascending=False)
+    return feature_importances
+
+def plot_feature_importance(feature_df):
+    feature_df = feature_df.sort_values(by='importance', ascending=True)
+    plt.figure(figsize=(20,6))
+    plt.barh(feature_df.index, feature_df['importance'])
+    plt.xlabel('Importance')
+    plt.title('Feature Importance')
+    plt.show()
 
 ### Load Data ###
 # Read the CSV file into DataFrame
@@ -83,8 +91,11 @@ X_test_scaled = scaler.transform(X_test)
 # untuned_dtree = d_tree(X_train,y_train,X_test,y_test)
 # tuned_dtree = d_tree_tuning(X_train, y_train, X_test, y_test)
 maxdepth_dtree = prune_dtree(X_train,y_train,X_test,y_test,6)
+
 feature_df = f_importance(maxdepth_dtree)
-print(feature_df[:50])
+top_30f = feature_df[:30]
+plot_feature_importance(top_30f)
+
 
 # fig, ax = plt.subplots(figsize=(20, 20)) 
 # tree.plot_tree(maxdepth_dtree, 
