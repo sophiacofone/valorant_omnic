@@ -1,5 +1,5 @@
 # 7/14/23, Sophia Cofone, Omnic ML Project
-# Purpose of this script is to prepare/pre-process the data for modeling
+# Purpose of this script is to prepare/pre-process the data for W/L modeling
 # Includes dropping un-needed cols, translated boolean cols to 0 and 1, one-hot encoding for categorical attributes
 
 ### Required imports ###
@@ -22,9 +22,11 @@ def create_prepro_data(df, csv_title):
     mapping = {True: 1, False: 0}
     df.loc[:, 'spike_planted'] = df['spike_planted'].map(mapping)
     df.loc[:, 'round_info_round_won'] = df['round_info_round_won'].map(mapping)
+    df.loc[:, 'all_ally_dead'] = df['all_ally_dead'].map(mapping)
+    df.loc[:, 'all_opponent_dead'] = df['all_opponent_dead'].map(mapping)
 
     # One-hot
-    df_encoded = pd.get_dummies(df, columns=['map', 'ally4_character', 
+    df_encoded = pd.get_dummies(df, columns=['map', 'self_character','ally4_character', 
                                             'ally1_character', 'ally2_character', 'ally3_character', 
                                             'opponent5_character', 'opponent6_character', 'opponent7_character',
                                             'opponent8_character', 'opponent9_character',
@@ -40,8 +42,8 @@ def create_prepro_data(df, csv_title):
     df_encoded.to_csv(csv_title, index=False)
 
 ### CREATING THE CSVs ###
-create_prepro_data(df1, 'df1_prepro_data.csv')
-create_prepro_data(df2, 'df2_prepro_data.csv')
-create_prepro_data(df3, 'df3_prepro_data.csv')
-create_prepro_data(df4, 'alldf_prepro_data.csv')
+create_prepro_data(df1, 'wl_df1_prepro_data.csv')
+create_prepro_data(df2, 'wl_df2_prepro_data.csv')
+create_prepro_data(df3, 'wl_df3_prepro_data.csv')
+create_prepro_data(df4, 'wl_alldf_prepro_data.csv')
 
