@@ -25,4 +25,5 @@ balanced_onehot.csv
 valorant_agent_streamer.xlsx
 preprocess/csv
 win_loss/csv
+roles/csv
 
