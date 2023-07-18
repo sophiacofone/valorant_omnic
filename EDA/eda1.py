@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 ### Load Data ###
-
 # Read the CSV files into separate DataFrames
 df1 = pd.read_csv('preprocess/csv/pro2_abilities.csv')
 df2 = pd.read_csv('preprocess/csv/pro1_abilities.csv')
