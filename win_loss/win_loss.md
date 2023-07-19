@@ -28,9 +28,20 @@ This was not a suprising result. In fact, this indicates a "balanced" game where
 Refer to the [EDA section](eda.md) for more information on the EDA process and how these visuals were generated.
 
 ## What should player's focus on to win a round of Valorant?
-To answer this question, one 
+To answer this question, one strategy is to build a classifier that can accuratley predict wins and losses. Then, we can examine the feature importances/coefficents and determine which factors are most influential in determining match outcomes. Since we care less about the actual prediction and more about the features, we need to work with models like decision trees and logistic regression since these models can be easily interpreted.
 
-### Does this change depending on if you are attacking or defending?
+### Logistic Regression
+
+### Decision Tree
+Decision trees work by ...
+#### Permutation Importance
+Directly measures variable importance by observing the effect on model accuracy of randomly shuffling each predictor variable. It's a more robust way than merely looking at feature importance, especially when features are correlated.
+
+#### Partial Dependence Plots (PDPs
+Plots that show how a feature affects predictions. They could help to see whether the relationship between the target and a feature is linear, monotonic, or more complex.
+
+
+## Does this change depending on if you are attacking or defending?
 
 ### Does this change depending on what point of the match you are in (pre or post spike plant)?
 
