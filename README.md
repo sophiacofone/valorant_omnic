@@ -1,5 +1,5 @@
 # Gameplay-Based Classification of Valorant Players: Insights and Feature Importance
-This repo documents the development efforts in investigating Valorant gameplay data using data analysis, statistical methods, and machine learning.
+This repo documents the development efforts in investigating Valorant gameplay data using machine learning and data analysis.
 
 ## Motivation and Research Questions
 The motivation behind this project is to try and prove (or disprove) common sentiments regarding Valorant gameplay strategy. In the Valorant gaming community, it is common for certain play-styles, characters, weapons, and strategies to be considered "meta" (aka very strong or powerful). By following these strategies, picking certain characters, or utilizing specific weapons, players should have an edge over the competition and garner better match outcomes. However, there is very little actual data (or analysis) to support these claims (it is mainly anecdotal accounts). 
@@ -14,7 +14,7 @@ My goal is to formulate some of these claims into research questions, and use ma
 2. Is it possible to classify Valorant players into "roles" based solely on game-play data?
    - Do sentinels, controllers, duelists, and initiators truly use different strategies and gameplay mechanics?
    - Are there other roles that are more informative of how users actually play?
-     - For example, in the Valorant community a commonly-recommended strategy is to play as a "entry-fragger", which is a more specific role than than just "duelist".
+    - For example, in the Valorant community a commonly-recommended strategy is to play as a "entry-fragger", which is a more specific role than than just "duelist".
     
 Much more detail into the background & context behind these questions is provided in the [win_condition](https://github.com/sophiacofone/omnic_ml/tree/main/notebooks) and [role](https://github.com/sophiacofone/omnic_ml/tree/main/notebooks) sections. 
 
