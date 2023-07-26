@@ -44,6 +44,11 @@ Logistic function: -σ(z) = 1 / (1 + e^(-z))
 
 During training, the model finds the best values for the coefficients (weights) that minimize the error between the predicted probabilities and the actual class labels in the training data.
 
+#### Applying Log Reg to this problem
+##### Pre-Processing
+##### Feature Selection
+
+
 
 ### Decision Tree
 Decision trees work by ...
