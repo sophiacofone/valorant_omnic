@@ -1,5 +1,5 @@
 # Gameplay-Based Classification of Valorant Players: Insights and Feature Importance
-This repo documents the development efforts in investigating Valorant gameplay data using data analysis, statistical methods, and machine learning.
+This repo documents the development efforts in investigating Valorant gameplay data using machine learning and data analysis.
 
 ## Motivation and Research Questions
 The motivation behind this project is to try and prove (or disprove) common sentiments regarding Valorant gameplay strategy. In the Valorant gaming community, it is common for certain play-styles, characters, weapons, and strategies to be considered "meta" (aka very strong or powerful). By following these strategies, picking certain characters, or utilizing specific weapons, players should have an edge over the competition and garner better match outcomes. However, there is very little actual data (or analysis) to support these claims (it is mainly anecdotal accounts). 
