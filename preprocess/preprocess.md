@@ -11,7 +11,7 @@ To solve both these problems, I decided to "normalize" the data by round. Rather
 <img src="../imgs/post_norm_round_length.png" alt="win ratio map" width="400"/>
 
 ### Parsing
-Since the higher levels of the data-tree were essentailly summaries of the deeper levels, in order to extract the information I needed I decided to start my parsing at the "source", the `'statistics'` node. I also maintained the `'user_id'` information in case it became relevant in the future. All of this preprocessing is done in `parsing/norm_round_spikesplit.py` abd `preprocess/ability_remap.py`. The process is as follows:
+Since the higher levels of the data-tree were essentailly summaries of the deeper levels, in order to extract the information I needed I decided to start my parsing at the "source", the `'statistics'` node. I also maintained the `'user_id'` information in case it became relevant in the future. All of this preprocessing is done in `parsing/norm_round_spikesplit.py` and `preprocess/ability_remap.py`. The process is as follows:
 
 #### Flattening
 1. Dropped the all cols besides 'statistics' and 'user_id'
