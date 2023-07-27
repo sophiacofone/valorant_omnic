@@ -45,6 +45,12 @@ Logistic function: -σ(z) = 1 / (1 + e^(-z))
 During training, the model finds the best values for the coefficients (weights) that minimize the error between the predicted probabilities and the actual class labels in the training data.
 
 #### Applying Log Reg to this problem
+Since log reg is sensitive to class inbalance, I checked to ensure my target was balanced.
+
+<img src="../imgs/g_won.png" alt="win ratio map" width="400"/>
+
+
+Since we are ultimatly interseted in the **features** 
 ##### Pre-Processing
 ##### Feature Selection
 
