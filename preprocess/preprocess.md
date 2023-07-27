@@ -14,14 +14,14 @@ To solve both these problems, I decided to "normalize" the data by round. Rather
 Since the higher levels of the data-tree were essentailly summaries of the deeper levels, in order to extract the information I needed I decided to start my parsing at the "source", the `'statistics'` node. I also maintained the `'user_id'` information in case it became relevant in the future. All of this preprocessing is done in `parsing/norm_round_spikesplit.py` and `preprocess/ability_remap.py`. The process is as follows:
 
 #### Flattening
-1. Dropped the all cols besides 'statistics' and 'user_id'
+1. Dropped the all cols besides `'statistics'` and `'user_id'`
 2. Flattened the stats col by 1 level
-    - Removed cols from the match perspective, such as 'totals' and 'result'
-    - Even though 'map' is from match perspective, I need it so I am adding it in (similar to userID)
-    - Removed 'allies_onscreen', 'opponents_onscreen', and 'detections_totals' (I think it is possible to engineer something from these columns, but this was an inconsistantly collected feature so I dropped it)
-3. Flattened the player_ids col by 1 level
-    - Gets all the teammates and opponents, as well as maps the 'player' to an ally (see the "Re-mapping active player" section below)
-4. Flattened the round_info/round_totals cols by 1 level
+    - Removed cols from the match "perspective", such as `'totals'` and `'result'`
+    - Even though `'map'` is from match perspective, I need it so I am adding it in (similar to userID)
+    - Removed `'allies_onscreen'`, `'opponents_onscreen'`, and `'detections_totals'` (I think it is possible to engineer something from these columns, but this was an inconsistantly collected feature so I dropped it)
+3. Flattened the `'player_ids'` col by 1 level
+    - Gets all the teammates and opponents, as well as maps the `'player'` to an ally (see the "Re-mapping active player" section below)
+4. Flattened the `'round_info/round_totals'` cols by 1 level
     - This is where the DF expands into rounds being the rows instead of matches being the rows
 
 #### Collecting features
