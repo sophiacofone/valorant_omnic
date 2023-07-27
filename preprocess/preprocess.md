@@ -3,9 +3,11 @@ This project required extensive data preperation. Some of the preprocessing is c
 
 ## Preprocessing for all models/analysis
 The data provided is originally in a heavily-nested JSON tree-based structure. The first layer of the tree is mostly summary information about the processing (for example when the match was processed, not relevant) and match-level information (for example, total eliminations in match). Early on in the project, I realized that match-level data was too high-level and didn't capture the nuances of the game required for my research questions. I also discovered that the data had mixed game-types. Some game-types are shorter than others, resulting in bi-modal feature distrobtisions due to the incosistant match length. 
+
 <img src="../imgs/pre_norm_round_length.png" alt="win ratio map" width="400"/>
 
 To solve both these problems, I decided to "normalize" the data by round. Rather than looking at match level, I would look at the round level (each row of my data would be a round rather than a match). This also allowed the mixed-gametypes to be comparable.
+
 <img src="../imgs/post_norm_round_length.png" alt="win ratio map" width="400"/>
 
 ### Parsing
