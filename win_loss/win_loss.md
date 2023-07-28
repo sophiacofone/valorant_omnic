@@ -26,7 +26,7 @@ This is not a suprising result. In fact, this indicates that what it takes to wi
 
 Refer to the [EDA section](https://github.com/sophiacofone/omnic_ml/blob/main/EDA/eda.md) for more information on the EDA process and how these visuals were generated.
 
-## What should player's focus on to win a round of Valorant?
+## What should players focus on to win a round of Valorant?
 To answer this question, one strategy is to build a classifier that can accuratley predict wins and losses. Then, we can examine the feature importances/coefficents and determine which factors are most influential in determining match outcomes. Since we care less about the actual prediction and more about the features, a good choice would be to work with with models like decision trees and logistic regression since these models can be easily interpreted.
 
 ### Data & Preprocessing
@@ -75,6 +75,8 @@ I created a dataframe/csv (`win_loss/df_coefs_logreg_all.csv`) of the features a
 | self_pre_spike_map_covered               | 0.9         |
 | opponent0_post_spike_deaths              | 0.8         |
 
+These coefs indicate that opponent deaths/team elims, ability/ultimate usage, and the odin gun are important features for predicting wins.
+
 ##### Top 10 important features for predicting losses
 | Feature                                      | Coef        |
 | -------------------------------------------- | ----------- |
@@ -88,6 +90,8 @@ I created a dataframe/csv (`win_loss/df_coefs_logreg_all.csv`) of the features a
 | opponent4_post_spike_elims                   | -1.2        |
 | map_Breeze                                   | -1.2        |
 | self_post_spike_longest_gun_primary_operator | -1.1        |
+
+These coefs indicate that opponent deaths/team elims, ability/ultimate usage, and the odin gun are important features for predicting wins.
 
 ##### Top 10 important features combined
 | Feature                               | Coef        |

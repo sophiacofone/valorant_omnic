@@ -7,36 +7,43 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+def run_logreg_process(csv_in, csv_out):
 
-### Load Data ###
-# Read the CSV file into DataFrame
-df = pd.read_csv('win_loss/csv/wl_alldf_prepro_data.csv')
+    df = pd.read_csv(csv_in)
 
-### Train Test Split ###
-X = df.drop('round_info_round_won', axis=1)
-y = df['round_info_round_won']
+    # Train Test Split
+    X = df.drop('round_info_round_won', axis=1)
+    y = df['round_info_round_won']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
 
-### Scale the data ###
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+    # Scale the data
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
 
-# ### Logistic Regression ###
-# # Hyper-param tuning grid
-# C_values = [0.001, 0.01, 0.1, 1, 10, 100]
+    # Hyper-param tuning grid
+    C_values = [0.001, 0.01, 0.1, 1, 10, 100]
 
-# # tuning l1 log reg with CV for C param
-# best_l1_model = log_reg_tuning_l1(X_train, y_train, C_values)
+    # tuning l1 log reg with CV for C param
+    best_l1_model = log_reg_tuning_l1(X_train_scaled, y_train, C_values)
 
-# # feature selecting using l1 logreg
-# X_train_l1, X_test_l1,selected_features = log_reg_select_f_l1(X_train, X_test, best_l1_model)
+    # feature selecting using l1 logreg
+    X_train_l1, X_test_l1,selected_features = log_reg_select_f_l1(X_train_scaled, X_test_scaled, best_l1_model)
 
-# # new model with selected feats using l2
-# l2_model = log_reg_train_l2(C_values, X_train_l1, X_test_l1, y_train, y_test)
+    # new model with selected feats using l2
+    l2_model = log_reg_train_l2(C_values, X_train_l1, X_test_l1, y_train, y_test)
 
-# log_reg_get_f_l2(l2_model,selected_features, 'df_coefs_logreg_all')
+    log_reg_get_f_l2(l2_model,selected_features, csv_out)
+
+
+############# Logistic Regression ##############
+run_logreg_process('win_loss/csv/wl_alldf_prepro_data.csv','df_coefs_logreg_all.csv')
+# run_logreg_process('win_loss/csv/wl_alldf_prepro_data_attack.csv','df_coefs_logreg_attack.csv')
+# run_logreg_process('win_loss/csv/wl_alldf_prepro_data_defend.csv','df_coefs_logreg_defend.csv')
+# run_logreg_process('win_loss/csv/wl_alldf_prepro_data_prespike.csv','df_coefs_logreg_prespike.csv')
+# run_logreg_process('win_loss/csv/wl_alldf_prepro_data_postspike.csv','df_coefs_logreg_postspike.csv')
+
 
 
 # untuned_dtree = d_tree(X_train,y_train,X_test,y_test)
