@@ -59,15 +59,14 @@ Since we are ultimatly interseted in the **features** of this model, I decided t
 ####  What should player's focus on to win a round of Valorant?: All data
 I created a dataframe/csv (`win_loss/df_coefs_logreg_all.csv`) of the features and their coefs. The magnitude indicates the "importance" of the feature.
 
-##### Top 20 important features combined
-
+##### Metrics
 | Metric         | Result   |
 | -------------- | -------- |
 | Train Accuracy | 95%      |
 | Test Accuracy  | 95%      |
 | Train F1       | 95%      |
 | Test F1        | 95%      |
-
+##### Top 20 important features combined
 |   Feature                                 |   coef                 |
 |-------------------------------------------|------------------------|
 |   all_opponent_dead                       |    0.9882489094383900  |
@@ -91,18 +90,19 @@ I created a dataframe/csv (`win_loss/df_coefs_logreg_all.csv`) of the features a
 |   ally3_post_spike_total_health_loss      |   0.6061965632616760   |
 |   self_post_spike_total_health_loss       |   -0.5753664427197250  |
 
-These features indicate that from an overall perspective, not dying is the most important predicter for wining rounds of valorant. This may seem obvious, but I still think that it is interesting that above getting eliminations, using abilities, spike plant, simply being alive is the best thing to focus on. This could justify playing more "defensivly"
+These features indicate that from an overall perspective, your team not dying, your opponents dying, and health are the most important predicter for wining rounds of valorant. This may seem obvious, but in Valorant there are multiple ways to win with elims/deaths being only one of them. These results could justify playing more "defensivly", i.e. not dying versus trying to get lots of elims by taking risky moves.
 
-##### Top 20 important features combined - no deaths
+#### No deaths?
 I wanted to also see what without using deaths as a feature, could the model still predict well and what features it would pick.
 
+##### Metrics
 | Metric         | Result   |
 | -------------- | -------- |
 | Train Accuracy | 94%      |
 | Test Accuracy  | 94%      |
 | Train F1       | 95%      |
 | Test F1        | 94%      |
-
+##### Top 20 important features combined - no deaths
 |   Feature                                 |   Coef                 |
 |-------------------------------------------|------------------------|
 |   ally1_post_spike_deaths                 |   -1.6703996301272200  |
@@ -126,7 +126,8 @@ I wanted to also see what without using deaths as a feature, could the model sti
 |   self_pre_spike_longest_inv_state_melee  |   0.714229161153148    |
 |   all_ally_dead                           |   -0.6919451999149420  |
 |   opponent4_post_spike_elims              |   -0.6881325572874230  |
-|   opponent1_pre_spike_deaths              |   0.6753087258632680   |
+
+The model does still predict well, but this time it appears to be focusing on elims rather than deaths. 
 
 ####  What should player's focus on to win a round of Valorant?: Attacking vs Defending
 Now that we have an idea of what it takes to win a round of valorant from an overall level, I thought it would be interesting to explore if these features change depending on some addiitonal criteria. I decided to use a "stratified analysis" approach, where I devide my data into groups and seperatly preform my analysis and investigate the differences (if there are any).
@@ -137,14 +138,14 @@ First, I devided my data into "attacker" and "defender" (I removed the unknown r
 
 Then, I re-ran my process using `win_loss/csv/'wl_alldf_prepro_data_attack.csv` and `win_loss/csv/'wl_alldf_prepro_data_defend.csv` producing `win_loss/df_coefs_logreg_attack.csv` and `win_loss/df_coefs_logreg_defenc.csv`.
 
-##### Top 20 important features combined: Attack
+##### Metrics
 | Metric         | Result   |
 | -------------- | -------- |
 | Train Accuracy | 97%      |
 | Test Accuracy  | 96%      |
 | Train F1       | 97%      |
 | Test F1        | 96%      |
-
+##### Top 20 important features combined: Attack
 | Feature                                 | Coef                   |
 | --------------------------------------- | ---------------------- |
 |   ally1_post_spike_deaths               |   -1.6703996301272200  |
@@ -170,15 +171,14 @@ Then, I re-ran my process using `win_loss/csv/'wl_alldf_prepro_data_attack.csv` 
 
 Similar to the analysis above, we see deaths/not dying as the best thing to focus on. However, we do see some ability use here.
 
-##### Top 20 important features combined: Defend
-
+##### Metrics
 | Metric         | Result   |
 | -------------- | -------- |
 | Train Accuracy | 96%      |
 | Test Accuracy  | 95%      |
 | Train F1       | 96%      |
 | Test F1        | 95%      |
-
+##### Top 20 important features combined: Defend
 | Feature                                 | Coef                   |
 | --------------------------------------- | ---------------------- |
 |   ally1_post_spike_deaths                     |   -1.6703996301272200  |
@@ -204,20 +204,18 @@ Similar to the analysis above, we see deaths/not dying as the best thing to focu
 |   ally1_post_spike_total_health_loss          |   0.7024308528414130   |
 |   opponent1_pre_spike_deaths                  |   0.6753087258632680   |
 
-Different to the analysis above, we see deaths/not dying as the best thing to focus on. However, we do see some ability use here.
-guns, ammo, abilites, POST SPIKE DAMAGE, POST SPIKE ELIMS, ELIMS, 
-
+Here, we see some differences. Deaths/health is still the highest, but we starat to see ammo, gun usage, ability usage, and elims. 
 
 ####  What should player's focus on to win a round of Valorant?: Pre vs Post Spike plant
 
-##### Top 20 important features combined: Pre-Spike
+##### Metrics
 | Metric         | Result   |
 | -------------- | -------- |
 | Train Accuracy | 91%      |
 | Test Accuracy  | 91%      |
 | Train F1       | 91%      |
 | Test F1        | 91%      |
-
+##### Top 20 important features combined: Pre-Spike
 | Feature                                        | Coef                    |
 | ---------------------------------------------- | ----------------------- |
 |   ally1_post_spike_deaths                      |   -1.6703996301272200   |
@@ -243,15 +241,16 @@ guns, ammo, abilites, POST SPIKE DAMAGE, POST SPIKE ELIMS, ELIMS,
 |   self_pre_spike_longest_gun_primary_operator  |   0.3753082448642650    |
 |   opponent1_pre_spike_deaths                   |   0.6753087258632680    |
 
-##### Top 20 important features combined: Post-Spike
+We still see deaths/health as big predictors, but with a lot more gun-related features.
 
+##### Metrics
 | Metric         | Result   |
 | -------------- | -------- |
 | Train Accuracy | 89%      |
 | Test Accuracy  | 88%      |
 | Train F1       | 89%      |
 | Test F1        | 89%      |
-
+##### Top 20 important features combined: Post-Spike
 | Feature                                    | Coef                    |
 | ------------------------------------------ | ----------------------- |
 |   ally1_post_spike_deaths                  |   -1.6703996301272200   |
@@ -277,16 +276,14 @@ guns, ammo, abilites, POST SPIKE DAMAGE, POST SPIKE ELIMS, ELIMS,
 |   self_post_spike_max_ammo_reserve_loss    |   -0.27191360986471900  |
 |   opponent1_pre_spike_deaths               |   0.6753087258632680    |
 
+We still see deaths/health as big predictors, but also credits (for the first time), ability usage, headshots.
 
 ## Decision Tree Model
-Even though I acheied good results with the simple logistic regression models, I wanted to also explore a non-linear classifier like decision trees. cision tree to find which features split the data best (which would suggest they are significant in determining wins and losses),
+Even though I acheied good results with the simple logistic regression models, I wanted to also explore a non-linear classifier like decision trees. Dcision tree to find which features split the data best (which would suggest they are significant in determining wins and losses), Decision trees work by ...
 
-Decision trees work by ...
+
 #### Permutation Importance
 Directly measures variable importance by observing the effect on model accuracy of randomly shuffling each predictor variable. It's a more robust way than merely looking at feature importance, especially when features are correlated.
-
-#### Partial Dependence Plots (PDPs
-Plots that show how a feature affects predictions. They could help to see whether the relationship between the target and a feature is linear, monotonic, or more complex.
 
 
 ## Does this change depending on if you are attacking or defending?
