@@ -15,3 +15,7 @@ df = pd.read_csv('win_loss/csv/wl_alldf_prepro_data.csv')
 # cols_to_keep = [col for col in df.columns if "post_spike" not in col]
 # pre_spike_df = df[cols_to_keep]
 # pre_spike_df.to_csv('wl_alldf_prepro_data_pre_spike.csv', index=False)
+
+# cols_to_keep = [col for col in df.columns if "deaths" not in col]
+# pre_spike_df = df[cols_to_keep]
+# pre_spike_df.to_csv('wl_alldf_prepro_data_no_deaths.csv', index=False)

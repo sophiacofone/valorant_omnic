@@ -37,11 +37,12 @@ def run_logreg_process(csv_in, csv_out):
     log_reg_get_f_l2(l2_model,selected_features, csv_out)
 
 ############# Logistic Regression ##############
-run_logreg_process('win_loss/csv/wl_alldf_prepro_data.csv','df_coefs_logreg_all.csv')
+# run_logreg_process('win_loss/csv/wl_alldf_prepro_data.csv','df_coefs_logreg_all.csv')
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_attack.csv','df_coefs_logreg_attack.csv')
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_defend.csv','df_coefs_logreg_defend.csv')
-# run_logreg_process('win_loss/csv/wl_alldf_prepro_data_prespike.csv','df_coefs_logreg_prespike.csv')
-# run_logreg_process('win_loss/csv/wl_alldf_prepro_data_postspike.csv','df_coefs_logreg_postspike.csv')
+# run_logreg_process('win_loss/csv/wl_alldf_prepro_data_pre_spike.csv','df_coefs_logreg_prespike.csv')
+# run_logreg_process('win_loss/csv/wl_alldf_prepro_data_post_spike.csv','df_coefs_logreg_postspike.csv')
+run_logreg_process('win_loss/csv/wl_alldf_prepro_data_no_deaths.csv','df_coefs_logreg_no_deaths.csv')
 
 
 ############# Decision Tree ##############

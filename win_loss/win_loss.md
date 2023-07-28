@@ -53,70 +53,229 @@ Log reg is sensitive to class inbalance. My first step was to ensure my target w
 <img src="../imgs/g_won.png" alt="win ratio map" width="400"/>
 
 ### Feature Selection
-Since we are ultimatly interseted in the **features** of this model, I decided to incoperate feature selection into this process. I first trained a logistic regression model using L1 regularizatoin. L1 regularization has the benefit of driving some feature weights to zero, effectivly excluding them from the model. Then, I used those features to create a new model using L2 regualrization. L2 regularization prevents overfitting and is less sensitive to outliers than L1. In both cases, I used cross validation to tune the "C" hyper parameter (controls the strength of the regularization). 
+Since we are ultimatly interseted in the **features** of this model, I decided to incoperate feature selection into this process. I first trained a logistic regression model using L1 regularizatoin. L1 regularization has the benefit of driving some feature weights to zero, effectivly excluding them from the model. I decided to further eliminate features by only including features with coefs that were above the median value. Then, I used those features to create a new model using L2 regualrization. L2 regularization prevents overfitting and is less sensitive to outliers than L1. In both cases, I used cross validation to tune the "C" hyper parameter (controls the strength of the regularization). 
 
 ### Results
 ####  What should player's focus on to win a round of Valorant?: All data
-I found using feature selection imporved the accuracy/F1 score of my model siginifantly. As mentioed above, I have over 500 features, and log reg does not do well with modeling complex relationships. Originally I used all the non-zero features returned by L1 regularization in my L2 model. My accuracy was only 72%. Including only the features above the median drasticly reduced the feature space and imrpoved the resulting L2 model to 94% accuracy and 0.94% F1 score on both classes. 
+I created a dataframe/csv (`win_loss/df_coefs_logreg_all.csv`) of the features and their coefs. The magnitude indicates the "importance" of the feature.
 
-I created a dataframe/csv (`win_loss/df_coefs_logreg_all.csv`) of the features and their coefs. For binary logistic regression, we can interpret the **positive** coefs as increasing the likelihood of class 1 (winning). And, we can interpret the **negative** coefs as increasing the likelihood of class 0 (losing). The magnitude indicates the "importance" of the feature. 
+##### Top 20 important features combined
 
-##### Top 10 important features for predicting wins
-| Feature                                  | Coef        |
-| ---------------------------------------- | ----------- |
-| all_opponent_dead                        | 1.9         |
-| self_post_spike_total_ability_usage_4    | 1.4         |
-| opponent4_post_spike_deaths              | 1.0         |
-| ally3_post_spike_wallbangs               | 1.0         |
-| self_post_spike_longest_gun_primary_odin | 0.9         |
-| ally1_post_spike_ultimate_usage          | 0.9         |
-| ally3_pre_spike_elims                    | 0.9         |
-| self_pre_spike_longest_inv_state_melee   | 0.9         |
-| self_pre_spike_map_covered               | 0.9         |
-| opponent0_post_spike_deaths              | 0.8         |
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 95%      |
+| Test Accuracy  | 95%      |
+| Train F1       | 95%      |
+| Test F1        | 95%      |
 
-These coefs indicate that opponent deaths/team elims, ability/ultimate usage, and the odin gun are important features for predicting wins.
+|   Feature                                 |   coef                 |
+|-------------------------------------------|------------------------|
+|   all_opponent_dead                       |    0.9882489094383900  |
+|   ally1_post_spike_deaths                 |   -0.9385987971353920  |
+|   ally1_pre_spike_deaths                  |   -0.898857198849475   |
+|   self_pre_spike_avg_health               |   0.8439591098285130   |
+|   ally2_pre_spike_deaths                  |   -0.8429755584496300  |
+|   ally3_pre_spike_deaths                  |   -0.7493854195499950  |
+|   opponent3_pre_spike_deaths              |   0.7336340167650350   |
+|   ally4_post_spike_deaths                 |   -0.7312162146760140  |
+|   opponent1_pre_spike_deaths              |   0.7242236307036010   |
+|   ally4_pre_spike_deaths                  |   -0.7183141248410150  |
+|   opponent4_pre_spike_deaths              |   0.712433619067903    |
+|   opponent2_pre_spike_deaths              |   0.6835489056728720   |
+|   self_longest_inv_state_melee            |   -0.6757866540937680  |
+|   opponent0_pre_spike_deaths              |   0.6723183751844650   |
+|   all_ally_dead                           |   -0.6680610650312690  |
+|   self_pre_spike_longest_inv_state_melee  |   0.6370944054678590   |
+|   self_pre_spike_deaths                   |   -0.6368605941682240  |
+|   ally3_post_spike_deaths                 |   -0.6307989473994810  |
+|   ally3_post_spike_total_health_loss      |   0.6061965632616760   |
+|   self_post_spike_total_health_loss       |   -0.5753664427197250  |
 
-##### Top 10 important features for predicting losses
-| Feature                                      | Coef        |
-| -------------------------------------------- | ----------- |
-| opponent2_post_spike_elims                   | -1.5        |
-| all_ally_dead                                | -1.4        |
-| opponent1_post_spike_elims                   | -1.3        |
-| ally1_character_harbor                       | -1.2        |
-| post_spike_shield_used                       | -1.2        |
-| opponent0_post_spike_elims                   | -1.2        |
-| opponent4_post_spike_elims                   | -1.2        |
-| opponent4_post_spike_elims                   | -1.2        |
-| map_Breeze                                   | -1.2        |
-| self_post_spike_longest_gun_primary_operator | -1.1        |
+These features indicate that from an overall perspective, not dying is the most important predicter for wining rounds of valorant. This may seem obvious, but I still think that it is interesting that above getting eliminations, using abilities, spike plant, simply being alive is the best thing to focus on. This could justify playing more "defensivly"
 
-These coefs indicate that opponent deaths/team elims, ability/ultimate usage, and the odin gun are important features for predicting wins.
+##### Top 20 important features combined - no deaths
+I wanted to also see what without using deaths as a feature, could the model still predict well and what features it would pick.
 
-##### Top 10 important features combined
-| Feature                               | Coef        |
-| ------------------------------------- | ----------- |
-| all_opponent_dead                     | 1.9         |
-| opponent2_post_spike_elims            | -1.5        |
-| self_post_spike_total_ability_usage_4 | 1.4         |
-| all_ally_dead                         | -1.4        |
-| opponent1_post_spike_elims            | -1.3        |
-| ally1_character_harbor                | -1.2        |
-| post_spike_shield_used                | -1.2        |
-| opponent0_post_spike_elims            | -1.2        |
-| opponent4_post_spike_elims            | -1.2        |
-| opponent4_post_spike_elims            | -1.2        |
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 94%      |
+| Test Accuracy  | 94%      |
+| Train F1       | 95%      |
+| Test F1        | 94%      |
 
+|   Feature                                 |   Coef                 |
+|-------------------------------------------|------------------------|
+|   ally1_post_spike_deaths                 |   -1.6703996301272200  |
+|   opponent1_pre_spike_elims               |   -1.2798674405305800  |
+|   ally3_pre_spike_elims                   |   1.2300565204608700   |
+|   ally2_pre_spike_elims                   |   1.18446367741373     |
+|   ally1_pre_spike_elims                   |   1.1376096807716800   |
+|   ally4_pre_spike_elims                   |   1.110000294505390    |
+|   opponent3_pre_spike_elims               |   -1.0996632153713400  |
+|   opponent2_pre_spike_elims               |   -1.0983541264935200  |
+|   opponent4_pre_spike_elims               |   -1.0707871269108400  |
+|   self_pre_spike_elims                    |   1.0310610615631100   |
+|   all_opponent_dead                       |   0.9966485067026910   |
+|   opponent0_pre_spike_elims               |   -0.9925280504564480  |
+|   opponent2_post_spike_elims              |   -0.9839914759272690  |
+|   opponent3_post_spike_elims              |   -0.9092449766110730  |
+|   self_pre_spike_avg_health               |   0.8348623251219470   |
+|   opponent1_post_spike_elims              |   -0.8298465815564710  |
+|   ally3_post_spike_elims                  |   0.806710343293057    |
+|   self_longest_inv_state_melee            |   -0.7441413663323180  |
+|   self_pre_spike_longest_inv_state_melee  |   0.714229161153148    |
+|   all_ally_dead                           |   -0.6919451999149420  |
+|   opponent4_post_spike_elims              |   -0.6881325572874230  |
+|   opponent1_pre_spike_deaths              |   0.6753087258632680   |
 
 ####  What should player's focus on to win a round of Valorant?: Attacking vs Defending
-Now that we have an idea of what it takes to win a round of valorant from a high level, I thought it would be interesting to explore if these features change depending on some addiitonal criteria. I decided to use a "stratified analysis" approach, where I devide my data into groups and seperatly preform my analysis and investigate the differences (if there are any).
+Now that we have an idea of what it takes to win a round of valorant from an overall level, I thought it would be interesting to explore if these features change depending on some addiitonal criteria. I decided to use a "stratified analysis" approach, where I devide my data into groups and seperatly preform my analysis and investigate the differences (if there are any).
 
 First, I devided my data into "attacker" and "defender" (I removed the unknown rows).
 
 <img src="../imgs/g_ally.png" alt="win ratio map" width="400"/>
 
+Then, I re-ran my process using `win_loss/csv/'wl_alldf_prepro_data_attack.csv` and `win_loss/csv/'wl_alldf_prepro_data_defend.csv` producing `win_loss/df_coefs_logreg_attack.csv` and `win_loss/df_coefs_logreg_defenc.csv`.
+
+##### Top 20 important features combined: Attack
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 97%      |
+| Test Accuracy  | 96%      |
+| Train F1       | 97%      |
+| Test F1        | 96%      |
+
+| Feature                                 | Coef                   |
+| --------------------------------------- | ---------------------- |
+|   ally1_post_spike_deaths               |   -1.6703996301272200  |
+|   ally4_post_spike_deaths               |   -1.3721565846202400  |
+|   ally3_post_spike_deaths               |   -1.2383865192985900  |
+|   ally2_post_spike_deaths               |   -1.207032117040700   |
+|   round_info_round_length               |   -1.1651121582417600  |
+|   opponent3_post_spike_deaths           |   1.1507132924721000   |
+|   all_opponent_dead                     |   1.1307786860961700   |
+|   self_post_spike_deaths                |   -1.0733820756241300  |
+|   post_spike_crowd_control_vision_used  |   1.0404368913979500   |
+|   ally3_post_spike_total_health_loss    |   0.9989532836984400   |
+|   opponent1_pre_spike_deaths            |   0.9508902263537160   |
+|   ally1_pre_spike_deaths                |   -0.9486844033856280  |
+|   opponent2_pre_spike_deaths            |   0.9350685482106680   |
+|   opponent0_pre_spike_deaths            |   0.92489327480526     |
+|   opponent3_pre_spike_deaths            |   0.9223488365584660   |
+|   self_post_spike_max_health_loss       |   -0.8862837203866290  |
+|   opponent4_post_spike_deaths           |   0.8185005839381280   |
+|   opponent4_pre_spike_deaths            |   0.7785656109722340   |
+|   all_ally_dead                         |   -0.7726353504666180  |
+|   ally4_pre_spike_deaths                |   -0.7697123673928790  |
+
+Similar to the analysis above, we see deaths/not dying as the best thing to focus on. However, we do see some ability use here.
+
+##### Top 20 important features combined: Defend
+
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 96%      |
+| Test Accuracy  | 95%      |
+| Train F1       | 96%      |
+| Test F1        | 95%      |
+
+| Feature                                 | Coef                   |
+| --------------------------------------- | ---------------------- |
+|   ally1_post_spike_deaths                     |   -1.6703996301272200  |
+|   self_post_spike_total_health_loss           |   -1.4048513997774400  |
+|   all_opponent_dead                           |   1.2895060099724600   |
+|   self_longest_gun_primary_phantom            |   -1.178260381814890   |
+|   self_longest_inv_state_melee                |   -1.1680928617356300  |
+|   ally3_post_spike_total_health_loss          |   1.143035643510180    |
+|   self_post_spike_total_ammo_reserve_loss     |   1.0866869332501200   |
+|   self_pre_spike_longest_gun_primary_phantom  |   1.0694273048158000   |
+|   self_pre_spike_longest_inv_state_melee      |   1.0603282172138800   |
+|   post_spike_crowd_control_vision_used        |   1.0171755104521000   |
+|   post_spike_damage_for_team_used             |   0.870745813765667    |
+|   ally4_post_spike_elims                      |   0.838567585409549    |
+|   ally4_post_spike_deaths                     |   -0.8037460538647530  |
+|   self_pre_spike_avg_health                   |   0.8026429247463740   |
+|   self_pre_spike_longest_gun_primary_odin     |   0.7753015792331070   |
+|   opponent3_pre_spike_elims                   |   -0.7384452951607550  |
+|   self_post_spike_max_ammo_reserve_loss       |   -0.7345382915075390  |
+|   self_pre_spike_deaths                       |   -0.7220809635938230  |
+|   ally2_pre_spike_deaths                      |   -0.7113390993033230  |
+|   ally1_post_spike_deaths                     |   -0.7102710207246480  |
+|   ally1_post_spike_total_health_loss          |   0.7024308528414130   |
+|   opponent1_pre_spike_deaths                  |   0.6753087258632680   |
+
+Different to the analysis above, we see deaths/not dying as the best thing to focus on. However, we do see some ability use here.
+guns, ammo, abilites, POST SPIKE DAMAGE, POST SPIKE ELIMS, ELIMS, 
 
 
+####  What should player's focus on to win a round of Valorant?: Pre vs Post Spike plant
+
+##### Top 20 important features combined: Pre-Spike
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 91%      |
+| Test Accuracy  | 91%      |
+| Train F1       | 91%      |
+| Test F1        | 91%      |
+
+| Feature                                        | Coef                    |
+| ---------------------------------------------- | ----------------------- |
+|   ally1_post_spike_deaths                      |   -1.6703996301272200   |
+|   all_opponent_dead                            |   1.6855836963388600    |
+|   all_ally_dead                                |   -1.6139346397139800   |
+|   self_longest_gun_secondary_ghost             |   -0.9951241240938690   |
+|   self_pre_spike_longest_gun_secondary_ghost   |   0.9783090842880590    |
+|   opponent1_pre_spike_deaths                   |   0.5863409737695190    |
+|   opponent3_pre_spike_deaths                   |   0.5721287494268150    |
+|   opponent4_pre_spike_deaths                   |   0.5464931983882780    |
+|   ally1_pre_spike_deaths                       |   -0.5261706588499960   |
+|   ally2_pre_spike_deaths                       |   -0.4915017959346170   |
+|   opponent2_pre_spike_deaths                   |   0.4696511872098220    |
+|   opponent0_pre_spike_deaths                   |   0.46936088048022200   |
+|   map_unknown                                  |   -0.4588306637063800   |
+|   self_pre_spike_longest_gun_primary_judge     |   0.44560968659553200   |
+|   ally4_pre_spike_deaths                       |   -0.44503439143329000  |
+|   ally3_pre_spike_deaths                       |   -0.4195541890113650   |
+|   self_longest_inv_state_primary               |   0.41246459682815700   |
+|   self_pre_spike_avg_health                    |   0.4050623954135690    |
+|   self_longest_gun_primary_operator            |   -0.3964144448018260   |
+|   self_longest_gun_primary_judge               |   -0.39233111767187600  |
+|   self_pre_spike_longest_gun_primary_operator  |   0.3753082448642650    |
+|   opponent1_pre_spike_deaths                   |   0.6753087258632680    |
+
+##### Top 20 important features combined: Post-Spike
+
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 89%      |
+| Test Accuracy  | 88%      |
+| Train F1       | 89%      |
+| Test F1        | 89%      |
+
+| Feature                                    | Coef                    |
+| ------------------------------------------ | ----------------------- |
+|   ally1_post_spike_deaths                  |   -1.6703996301272200   |
+|   all_opponent_dead                        |   1.988560477374960     |
+|   all_ally_dead                            |   -1.8306075999282400   |
+|   ally3_post_spike_total_health_loss       |   0.5748347432541790    |
+|   ally1_post_spike_deaths                  |   -0.5371718797330310   |
+|   self_post_spike_total_health_loss        |   -0.5158301434749740   |
+|   self_post_spike_avg_credits              |   0.5001711474262690    |
+|   ally4_post_spike_deaths                  |   -0.4193000369542100   |
+|   self_post_spike_total_ammo_reserve_loss  |   0.40222373910636200   |
+|   opponent1_post_spike_elims               |   -0.39497056505775300  |
+|   spike_planted                            |   -0.3861514073713010   |
+|   ally1_post_spike_total_health_loss       |   0.34890964274876600   |
+|   self_post_spike_longest_inv_state_none   |   -0.3407263419872230   |
+|   ally4_post_spike_avg_health              |   0.31998347356295800   |
+|   self_post_spike_total_ability_usage_4    |   0.305710216622554     |
+|   ally3_post_spike_deaths                  |   -0.2944827300192010   |
+|   ally3_post_spike_elims                   |   0.29382870545559900   |
+|   post_spike_damage_for_team_used          |   0.2933489639029770    |
+|   opponent4_post_spike_headshots           |   -0.29046241197795200  |
+|   ally1_post_spike_avg_health              |   0.27804356679877700   |
+|   self_post_spike_max_ammo_reserve_loss    |   -0.27191360986471900  |
+|   opponent1_pre_spike_deaths               |   0.6753087258632680    |
 
 
 ## Decision Tree Model
