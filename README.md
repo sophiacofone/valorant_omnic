@@ -22,9 +22,21 @@ Much more detail into the background & context behind these questions is provide
 The data for this project is provided by [Omnic Data ](https://www.omnic.ai/forge.html). Omnic Data is an AI based E-Sports coaching platform that uses computer vision to collect data from uploaded videos of E-sports matches. Omnic provided ~X rounds of Valorant gameplay from a X professional Valorant streamers for this project. One of the main advantages of this dataset is it only includes professional players, hence we can expect less "noise" when compared to all user data. The data is organized as a time-series, where each event is captured with a timestamp.
 
 ## Repository Overview
-The repo is organized into three main sections. The [notebooks](https://github.com/sophiacofone/omnic_ml/tree/main/notebooks) section contains all the notebooks used
+The repo is organized into  main sections. 
 
 ## Main Results
+
+### What should players focus on to win a round of Valorant?
+
+Log Reg:
+after feature selection about 1/2 features
+all
+attack
+defend
+pre spike
+post spike
+
+
 
 ### Challenges / Limitations
 

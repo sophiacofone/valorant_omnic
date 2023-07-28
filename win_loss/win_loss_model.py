@@ -124,7 +124,7 @@ def log_reg_train_l2(C_values, X_train_l1, X_test_l1, y_train, y_test):
 
     return l2_model
 
-def log_reg_get_f_l2(l2_model, selected_features):
+def log_reg_get_f_l2(l2_model, selected_features,csv_name):
     # Get the coefficients from the L2 model
     coefs = l2_model.coef_[0]
 
@@ -138,4 +138,4 @@ def log_reg_get_f_l2(l2_model, selected_features):
     print(df_coefs[['feature', 'coefficient']])
 
     # Save the coefficients DataFrame to a CSV file
-    df_coefs.to_csv('df_coefs_logreg.csv', index=False)
+    df_coefs.to_csv(csv_name, index=False)
