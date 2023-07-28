@@ -29,13 +29,12 @@ def run_logreg_process(csv_in, csv_out):
     best_l1_model = log_reg_tuning_l1(X_train_scaled, y_train, C_values)
 
     # feature selecting using l1 logreg
-    X_train_l1, X_test_l1,selected_features = log_reg_select_f_l1(X_train_scaled, X_test_scaled, best_l1_model)
+    X_train_l1, X_test_l1,selected_features = log_reg_select_f_l1(X_train, X_train_scaled, X_test_scaled, best_l1_model)
 
     # new model with selected feats using l2
     l2_model = log_reg_train_l2(C_values, X_train_l1, X_test_l1, y_train, y_test)
 
     log_reg_get_f_l2(l2_model,selected_features, csv_out)
-
 
 ############# Logistic Regression ##############
 run_logreg_process('win_loss/csv/wl_alldf_prepro_data.csv','df_coefs_logreg_all.csv')
@@ -44,6 +43,8 @@ run_logreg_process('win_loss/csv/wl_alldf_prepro_data.csv','df_coefs_logreg_all.
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_prespike.csv','df_coefs_logreg_prespike.csv')
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_postspike.csv','df_coefs_logreg_postspike.csv')
 
+
+############# Decision Tree ##############
 
 
 # untuned_dtree = d_tree(X_train,y_train,X_test,y_test)

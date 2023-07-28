@@ -88,13 +88,13 @@ def log_reg_tuning_l1(X_train, y_train, C_values):
     best_l1_model = grid_search.best_estimator_
     return best_l1_model
 
-def log_reg_select_f_l1(X_train, X_test, best_l1_model):
+def log_reg_select_f_l1(X_train_orig, X_train, X_test, best_l1_model):
     # aelect features whose coefficients are in the top half
     model = SelectFromModel(best_l1_model, threshold='median')
     X_train_l1 = model.transform(X_train)
     X_test_l1 = model.transform(X_test)
 
-    selected_features = [f for f, s in zip(X_train.columns, model.get_support()) if s]
+    selected_features = [f for f, s in zip(X_train_orig.columns, model.get_support()) if s]
     print(f"Selected features: {selected_features}")
 
     return X_train_l1, X_test_l1, selected_features
