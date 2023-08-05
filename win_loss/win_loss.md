@@ -15,9 +15,8 @@ The purpose of this document is to walk through the first batch of research ques
 ## Are there certain characters, maps that are more likely to lead to a win?
 This is more of an EDA question. A well-designed game would not have one map that was siginificaly easier to win on, or one character that was dominant over the rest. To assess this, I grouped the data by feature and calculated the win-ratio.
 
-<img src="../imgs/wr_map.png" alt="win ratio map" width="400"/><img src="../imgs/wr_agent.png" alt="win ratio agent" width="400"/>
-<img src="../imgs/wr_ad.png" alt="win ratio attack defend" width="400"/>
-<img src="../imgs/wr_spike.png" alt="win ratio spike" width="400"/>
+<img src="../imgs/wr_map.png" alt="win ratio map" width="400"/> <img src="../imgs/wr_agent.png" alt="win ratio agent" width="400"/>
+<img src="../imgs/wr_ad.png" alt="win ratio attack defend" width="400"/> <img src="../imgs/wr_spike.png" alt="win ratio spike" width="400"/>
 
 I found the map types and agents to be balanced. Accodrding to this data, there does not seem to be any one map or agent that was "easier" to win with. I also checked the win/loss ratio for attackers vs defenders, as well as spike planted vs not. Like the map and agent, these visuals indicate that it is not "easier" to be an attacker or defender, or that its always "better" to plant the spike rather than just eliminating the whole opposing team. 
 
