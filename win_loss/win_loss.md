@@ -2,7 +2,7 @@
 The purpose of this document is to walk through the first batch of research questions related to winning rounds in Valorant.
 
 ## Questions and additional context
-- To win a match of valorant, you need to win 13 rounds (5 rounds if the gametype is swiftplay)
+- To win a match of valorant, you need to win 13 rounds (5 rounds if the game-type is swiftplay).
     - There are several ways to win a round. The options are dependent on if you are attacking or defending. 
         - If you are on the attacking side, you win by either planting the spike on the opposing side and it detonates, or you eliminate all opponents.
         - If you are on the defending side, you win by either deativating a planted spike, eliminating all opponents, or just suriving without the spike being planted.
@@ -15,8 +15,7 @@ The purpose of this document is to walk through the first batch of research ques
 ## Are there certain characters, maps that are more likely to lead to a win?
 This is more of an EDA question. A well-designed game would not have one map that was siginificaly easier to win on, or one character that was dominant over the rest. To assess this, I grouped the data by feature and calculated the win-ratio.
 
-<img src="../imgs/wr_map.png" alt="win ratio map" width="400"/>
-<img src="../imgs/wr_agent.png" alt="win ratio agent" width="400"/>
+<img src="../imgs/wr_map.png" alt="win ratio map" width="400"/><img src="../imgs/wr_agent.png" alt="win ratio agent" width="400"/>
 <img src="../imgs/wr_ad.png" alt="win ratio attack defend" width="400"/>
 <img src="../imgs/wr_spike.png" alt="win ratio spike" width="400"/>
 
@@ -280,6 +279,8 @@ We still see deaths/health as big predictors, but also credits (for the first ti
 
 ## Decision Tree Model
 Even though I acheied good results with the simple logistic regression models, I wanted to also explore a non-linear classifier like decision trees. Dcision tree to find which features split the data best (which would suggest they are significant in determining wins and losses), Decision trees work by ...
+
+
 
 
 #### Permutation Importance
