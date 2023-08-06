@@ -62,19 +62,13 @@ def d_tree_tuning(X_train, y_train, X_test, y_test):
 
     return best_dtc
 
-def f_importance(dtc, X_train):
+def f_importance(dtc, X_train,csv_name):
     feature_importances = pd.DataFrame(dtc.feature_importances_,
                                    index = X_train.columns,
                                    columns=['importance']).sort_values('importance', ascending=False)
+    
+    feature_importances.to_csv(csv_name, index=False)
     return feature_importances
-
-def plot_feature_importance(feature_df):
-    feature_df = feature_df.sort_values(by='importance', ascending=True)
-    plt.figure(figsize=(20,6))
-    plt.barh(feature_df.index, feature_df['importance'])
-    plt.xlabel('Importance')
-    plt.title('Feature Importance')
-    plt.show()
 
 
 def log_reg_tuning_l1(X_train, y_train, C_values):
