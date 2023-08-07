@@ -460,36 +460,20 @@ We still see deaths/health as big predictors, but with more gun-related features
 ##### Metrics: Post-spike, pruning (max 5 depth)
 | Metric         | Result   |
 | -------------- | -------- |
-| Train Accuracy | 85%      |
-| Test Accuracy  | 85%      |
-| Train F1       | 85%      |
-| Test F1        | 85%      |
+| Train Accuracy | 83%      |
+| Test Accuracy  | 83%      |
+| Train F1       | 83%      |
+| Test F1        | 83%      |
 ##### Top 20 important features combined: Post-Spike
-| Feature                                    | Coef                    |
-| ------------------------------------------ | ----------------------- |
-|   ally1_post_spike_deaths                  |   -1.6703996301272200   |
-|   all_opponent_dead                        |   1.988560477374960     |
-|   all_ally_dead                            |   -1.8306075999282400   |
-|   ally3_post_spike_total_health_loss       |   0.5748347432541790    |
-|   ally1_post_spike_deaths                  |   -0.5371718797330310   |
-|   self_post_spike_total_health_loss        |   -0.5158301434749740   |
-|   self_post_spike_avg_credits              |   0.5001711474262690    |
-|   ally4_post_spike_deaths                  |   -0.4193000369542100   |
-|   self_post_spike_total_ammo_reserve_loss  |   0.40222373910636200   |
-|   opponent1_post_spike_elims               |   -0.39497056505775300  |
-|   spike_planted                            |   -0.3861514073713010   |
-|   ally1_post_spike_total_health_loss       |   0.34890964274876600   |
-|   self_post_spike_longest_inv_state_none   |   -0.3407263419872230   |
-|   ally4_post_spike_avg_health              |   0.31998347356295800   |
-|   self_post_spike_total_ability_usage_4    |   0.305710216622554     |
-|   ally3_post_spike_deaths                  |   -0.2944827300192010   |
-|   ally3_post_spike_elims                   |   0.29382870545559900   |
-|   post_spike_damage_for_team_used          |   0.2933489639029770    |
-|   opponent4_post_spike_headshots           |   -0.29046241197795200  |
-|   ally1_post_spike_avg_health              |   0.27804356679877700   |
-|   self_post_spike_max_ammo_reserve_loss    |   -0.27191360986471900  |
-|   opponent1_pre_spike_deaths               |   0.6753087258632680    |
+| Feature                             | Importance               |
+|-------------------------------------|--------------------------|
+|   all_opponent_dead                 |   0.6809211552354340     |
+|   all_ally_dead                     |   0.27527208112504300    |
+|   self_post_spike_avg_credits       |   0.034537671619680900   |
+|   ally4_post_spike_max_health_loss  |   0.004567086915941690   |
+|   ally2_post_spike_assists          |   0.0026761614805278     |
+|   ally2_post_spike_elims            |   0.0020258436233721200  |
 
-We still see deaths/health as big predictors, but also credits (for the first time), ability usage, headshots.
+We still see deaths/health as big predictors, but also credits, ability assists, elims.
 
 ### Does this change depending on what "role" you are playing as?
