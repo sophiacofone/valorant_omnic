@@ -8,6 +8,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 import matplotlib.pyplot as plt
 from sklearn.feature_selection import SelectFromModel
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import plot_tree
 
 def d_tree(X_train,y_train,X_test,y_test):
     dtc = DecisionTreeClassifier(random_state=1)
@@ -24,8 +25,8 @@ def d_tree(X_train,y_train,X_test,y_test):
     
     return dtc
 
-def prune_dtree(X_train,y_train,X_test,y_test,max_depth):
-    dtc = DecisionTreeClassifier(max_depth = max_depth,min_samples_leaf=1,min_samples_split=5,random_state=1)
+def prune_dtree(X_train,y_train,X_test,y_test,max_depth,min_samples_leaf=1,min_samples_split=5):
+    dtc = DecisionTreeClassifier(max_depth = max_depth,min_samples_leaf=min_samples_leaf,min_samples_split=min_samples_split,random_state=1)
     dtc.fit(X_train, y_train)
     y_pred = dtc.predict(X_test)
     y_pred_train = dtc.predict(X_train)
@@ -38,6 +39,12 @@ def prune_dtree(X_train,y_train,X_test,y_test,max_depth):
     print(classification_report(y_test, y_pred))
     
     return dtc
+
+def vis_dtree(dtc, columns,save_path):
+    plt.figure(figsize=(12, 6))
+    plot_tree(dtc, feature_names=columns, class_names=str(dtc.classes_), filled=True)
+    plt.savefig(save_path, dpi=600, bbox_inches='tight')
+    plt.show()
 
 def d_tree_tuning(X_train, y_train, X_test, y_test):
     param_grid = {
@@ -62,14 +69,13 @@ def d_tree_tuning(X_train, y_train, X_test, y_test):
 
     return best_dtc
 
-def f_importance(dtc, X_train,csv_name):
+def f_importance(dtc, columns,csv_name):
     feature_importances = pd.DataFrame(dtc.feature_importances_,
-                                   index = X_train.columns,
+                                   index = columns,
                                    columns=['importance']).sort_values('importance', ascending=False)
     
-    feature_importances.to_csv(csv_name, index=False)
+    feature_importances.to_csv(csv_name)
     return feature_importances
-
 
 def log_reg_tuning_l1(X_train, y_train, C_values):
     # apply L1 regularization (Lasso) for feature selection
