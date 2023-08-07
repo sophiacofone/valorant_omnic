@@ -4,11 +4,13 @@
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classification_report
 import matplotlib.pyplot as plt
 from sklearn.feature_selection import SelectFromModel
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import plot_tree
+import seaborn as sns
+
 
 def d_tree(X_train,y_train,X_test,y_test):
     dtc = DecisionTreeClassifier(random_state=1)
@@ -16,33 +18,53 @@ def d_tree(X_train,y_train,X_test,y_test):
     y_pred = dtc.predict(X_test)
     y_pred_train = dtc.predict(X_train)
     print("Train Accuracy:", accuracy_score(y_train, y_pred_train))
+    print("Train F1:", f1_score(y_train, y_pred_train))
     print(confusion_matrix(y_train, y_pred_train))
-    print(classification_report(y_test, y_pred))
+    print(classification_report(y_test, y_pred_train))
 
     print("Test Accuracy:", accuracy_score(y_test, y_pred))
+    print("Test F1:", f1_score(y_test, y_pred))
     print(confusion_matrix(y_test, y_pred))
     print(classification_report(y_test, y_pred))
+
     
     return dtc
 
-def prune_dtree(X_train,y_train,X_test,y_test,max_depth,min_samples_leaf=1,min_samples_split=5):
+def prune_dtree(X_train,y_train,X_test,y_test,min_samples_leaf,min_samples_split,max_depth):
     dtc = DecisionTreeClassifier(max_depth = max_depth,min_samples_leaf=min_samples_leaf,min_samples_split=min_samples_split,random_state=1)
     dtc.fit(X_train, y_train)
     y_pred = dtc.predict(X_test)
     y_pred_train = dtc.predict(X_train)
     print("Train Accuracy:", accuracy_score(y_train, y_pred_train))
+    print("Train F1:", f1_score(y_train, y_pred_train))
     print(confusion_matrix(y_train, y_pred_train))
-    print(classification_report(y_test, y_pred))
+    print(classification_report(y_test, y_pred_train))
 
     print("Test Accuracy:", accuracy_score(y_test, y_pred))
+    print("Test F1:", f1_score(y_test, y_pred))
     print(confusion_matrix(y_test, y_pred))
     print(classification_report(y_test, y_pred))
+
+    confusion_matrix_test = confusion_matrix(y_test, y_pred)
     
-    return dtc
+    return dtc, confusion_matrix_test
 
 def vis_dtree(dtc, columns,save_path):
     plt.figure(figsize=(12, 6))
     plot_tree(dtc, feature_names=columns, class_names=str(dtc.classes_), filled=True)
+    plt.savefig(save_path, dpi=600, bbox_inches='tight')
+    plt.show()
+
+def confusion_vis(confusion_matrix_test,save_path):
+    # Create a heatmap
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(confusion_matrix_test, annot=True, fmt="d", cmap="Blues", cbar=False,
+                xticklabels=['Predicted Negative', 'Predicted Positive'],
+                yticklabels=['True Negative', 'True Positive'])
+
+    plt.xlabel("Predicted Labels")
+    plt.ylabel("True Labels")
+    plt.title("Confusion Matrix")
     plt.savefig(save_path, dpi=600, bbox_inches='tight')
     plt.show()
 
@@ -61,9 +83,11 @@ def d_tree_tuning(X_train, y_train, X_test, y_test):
 
     print("Best Parameters:", grid_search.best_params_)
     print("Train Accuracy:", accuracy_score(y_train, y_pred_train))
+    print("Train F1:", f1_score(y_train, y_pred_train))
     print(confusion_matrix(y_train, y_pred_train))
     print(classification_report(y_train, y_pred_train))
     print("Test Accuracy:", accuracy_score(y_test, y_pred))
+    print("Test F1:", f1_score(y_test, y_pred))
     print(confusion_matrix(y_test, y_pred))
     print(classification_report(y_test, y_pred))
 
@@ -116,13 +140,18 @@ def log_reg_train_l2(C_values, X_train_l1, X_test_l1, y_train, y_test):
     y_pred_test_l2 = l2_model.predict(X_test_l1)
     
     print("Train Accuracy:", accuracy_score(y_train, y_pred_train_l2))
+    print("Train F1:", f1_score(y_train, y_pred_train_l2))
     print(confusion_matrix(y_train, y_pred_train_l2))
+    
     print(classification_report(y_train, y_pred_train_l2))
     print("Test Accuracy:", accuracy_score(y_test, y_pred_test_l2))
+    print("Test F1:", f1_score(y_test, y_pred_test_l2))
     print(confusion_matrix(y_test, y_pred_test_l2))
     print(classification_report(y_test, y_pred_test_l2))
 
-    return l2_model
+    confusion_matrix_test = confusion_matrix(y_test, y_pred_test_l2)
+
+    return l2_model, confusion_matrix_test
 
 def log_reg_get_f_l2(l2_model, selected_features,csv_name):
     # Get the coefficients from the L2 model
