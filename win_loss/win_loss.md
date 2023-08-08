@@ -338,7 +338,7 @@ Please see [win_loss_model](https://github.com/sophiacofone/omnic_ml/blob/main/w
 | No Deaths    | Health, Eliminations                                                 |
 | Attack       | Deaths, Health, Credits, Eliminations
 | Defend       | Deaths, Health, Spike_time, Credits |
-| Pre-Spike    | Deaths, Health, Spike_time, Movement %                                      |
+| Pre-Spike    | Deaths, Health, Ammo, Movement %                                      |
 | Post-Spike   | Deaths, Health, Credits, Assists            |
 
 ####  What should player's focus on to win a round of Valorant?: All data
