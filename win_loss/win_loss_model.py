@@ -31,14 +31,14 @@ def d_tree(X_train,y_train,X_test,y_test):
     return dtc
 
 def prune_dtree(X_train,y_train,X_test,y_test,min_samples_leaf,min_samples_split,max_depth):
-    dtc = DecisionTreeClassifier(max_depth = max_depth,min_samples_leaf=min_samples_leaf,min_samples_split=min_samples_split,random_state=1)
+    dtc = DecisionTreeClassifier(min_samples_leaf=min_samples_leaf,min_samples_split=min_samples_split,max_depth=max_depth,random_state=1)
     dtc.fit(X_train, y_train)
     y_pred = dtc.predict(X_test)
     y_pred_train = dtc.predict(X_train)
     print("Train Accuracy:", accuracy_score(y_train, y_pred_train))
     print("Train F1:", f1_score(y_train, y_pred_train))
     print(confusion_matrix(y_train, y_pred_train))
-    print(classification_report(y_test, y_pred_train))
+    print(classification_report(y_test, y_pred))
 
     print("Test Accuracy:", accuracy_score(y_test, y_pred))
     print("Test F1:", f1_score(y_test, y_pred))
@@ -56,7 +56,6 @@ def vis_dtree(dtc, columns,save_path):
     plt.show()
 
 def confusion_vis(confusion_matrix_test,save_path):
-    # Create a heatmap
     plt.figure(figsize=(8, 6))
     sns.heatmap(confusion_matrix_test, annot=True, fmt="d", cmap="Blues", cbar=False,
                 xticklabels=['Predicted Negative', 'Predicted Positive'],

@@ -58,6 +58,7 @@ def run_decisiontree_process(csv_in):
     #d_tree_tuning
     best_dtc = d_tree_tuning(X_train, y_train, X_test, y_test)
 
+
 def prune_tree(csv_in,csv_out,min_samples_leaf,min_samples_split,max_depth):
     df = pd.read_csv(csv_in)
 
@@ -74,9 +75,11 @@ def prune_tree(csv_in,csv_out,min_samples_leaf,min_samples_split,max_depth):
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
-    pruned = prune_dtree(X_train,y_train,X_test,y_test,min_samples_leaf,min_samples_split,max_depth)
+    pruned, confusion_matrix_test = prune_dtree(X_train,y_train,X_test,y_test,min_samples_leaf,min_samples_split,max_depth)
 
     feature_importances = f_importance(pruned, cols,csv_out)
+
+    confusion_vis(confusion_matrix_test,'confusion_mat')
 
     return pruned, cols
 
@@ -85,13 +88,13 @@ def prune_tree(csv_in,csv_out,min_samples_leaf,min_samples_split,max_depth):
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_attack.csv','df_coefs_logreg_attack.csv')
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_defend.csv','df_coefs_logreg_defend.csv')
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_pre_spike.csv','df_coefs_logreg_prespike.csv')
-run_logreg_process('win_loss/csv/wl_alldf_prepro_data_post_spike.csv','df_coefs_logreg_postspike.csv')
+# run_logreg_process('win_loss/csv/wl_alldf_prepro_data_post_spike.csv','df_coefs_logreg_postspike.csv')
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_no_deaths.csv','df_coefs_logreg_no_deaths.csv')
 
 
 ############# Decision Tree ##############
-# run_decisiontree_process('win_loss/csv/wl_alldf_prepro_data.csv','df_coefs_dtree_all.csv')
-# pruned,cols = prune_tree('win_loss/csv/wl_alldf_prepro_data.csv','df_import_dtree_all_5.csv',5,1,5)
+# run_decisiontree_process('win_loss/csv/wl_alldf_prepro_data.csv')
+# pruned,cols = prune_tree('win_loss/csv/wl_alldf_prepro_data.csv','df_import_dtree_all_5.csv',1,5,5)
 # vis_dtree(pruned,cols,"decision_tree_all_5.png")
 
 # run_decisiontree_process('win_loss/csv/wl_alldf_prepro_data_attack.csv')
@@ -103,7 +106,7 @@ run_logreg_process('win_loss/csv/wl_alldf_prepro_data_post_spike.csv','df_coefs_
 # vis_dtree(pruned,cols,"decision_tree_defend_5.png")
 
 # run_decisiontree_process('win_loss/csv/wl_alldf_prepro_data_pre_spike.csv')
-# pruned,cols = prune_tree('win_loss/csv/wl_alldf_prepro_data_pre_spike.csv','df_import_dtree_pres_5.csv',3,2,10)
+# pruned,cols = prune_tree('win_loss/csv/wl_alldf_prepro_data_pre_spike.csv','df_import_dtree_pres_5.csv',3,2,5)
 # vis_dtree(pruned,cols,"decision_tree_pres_5.png")
 
 # run_decisiontree_process('win_loss/csv/wl_alldf_prepro_data_post_spike.csv')
@@ -111,7 +114,7 @@ run_logreg_process('win_loss/csv/wl_alldf_prepro_data_post_spike.csv','df_coefs_
 # vis_dtree(pruned,cols,"decision_tree_posts_5.png")
 
 # run_decisiontree_process('win_loss/csv/wl_alldf_prepro_data_no_deaths.csv')
-# pruned,cols = prune_tree('win_loss/csv/wl_alldf_prepro_data_no_deaths.csv','df_import_dtree_no_deaths_5.csv',2,2,5)
+# pruned,cols = prune_tree('win_loss/csv/wl_alldf_prepro_data_no_deaths.csv','df_import_dtree_no_deaths_5.csv',3,10,5)
 # vis_dtree(pruned,cols,"decision_tree_no_deaths_5.png")
 
 # run_decisiontree_process('win_loss/csv/sentinels_df.csv')
@@ -119,13 +122,13 @@ run_logreg_process('win_loss/csv/wl_alldf_prepro_data_post_spike.csv','df_coefs_
 # vis_dtree(pruned,cols,"decision_tree_sentinels_df_4.png")
 
 # run_decisiontree_process('win_loss/csv/controllers_df.csv')
-# pruned,cols = prune_tree('win_loss/csv/controllers_df.csv','df_import_dtree_controllers_df_5.csv',2,2,5)
-# vis_dtree(pruned,cols,"decision_tree_controllers_df_5.png")
+# pruned,cols = prune_tree('win_loss/csv/controllers_df.csv','df_import_dtree_controllers_df_4.csv',1,10,4)
+# vis_dtree(pruned,cols,"decision_tree_controllers_df_4.png")
 
 # run_decisiontree_process('win_loss/csv/duelists_df.csv')
-# pruned,cols = prune_tree('win_loss/csv/duelists_df.csv','df_import_dtree_duelists_df_5.csv',2,2,5)
-# vis_dtree(pruned,cols,"decision_tree_duelists_df_5.png")
+# pruned,cols = prune_tree('win_loss/csv/duelists_df.csv','df_import_dtree_duelists_df_4.csv',3,2,4)
+# vis_dtree(pruned,cols,"decision_tree_duelists_df_4.png")
 
 # run_decisiontree_process('win_loss/csv/initiators_df.csv')
-# pruned,cols = prune_tree('win_loss/csv/initiators_df.csv','df_import_dtree_initiators_df_5.csv',2,2,5)
-# vis_dtree(pruned,cols,"decision_tree_initiators_df_5.png")
+# pruned,cols = prune_tree('win_loss/csv/initiators_df.csv','df_import_dtree_initiators_df_4.csv',3,2,4)
+# vis_dtree(pruned,cols,"decision_tree_initiators_df_4.png")
