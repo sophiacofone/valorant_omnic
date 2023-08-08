@@ -17,6 +17,6 @@ pro2_data.json
 parsing/__pycache__/
 parsing/csv
 preprocess/csv
-win_loss/csv
+# win_loss/csv
 # roles/csv
 
