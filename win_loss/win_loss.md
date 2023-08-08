@@ -22,7 +22,7 @@ I found the map types and agents to be balanced. According to this data, there d
 
 This is not a surprising result. In fact, this indicates that what it takes to win a round of Valorant is more strategic and subtle than simply picking the best agent (for example). Individual players may still have maps or agents that consistently give them better outcomes. However, this is likely due to preference/practice rather than the agent/map itself being inherently better.
 
-Refer to the [EDA section](https://github.com/sophiacofone/omnic_ml/blob/main/EDA/eda.md) for more information on the EDA process and how these visuals were generated.
+Refer to the [EDA code](https://github.com/sophiacofone/omnic_ml/blob/main/EDA/eda.py) for more information on the EDA process and how these visuals were generated.
 
 ## What should players focus on to win a round of Valorant?
 To answer this question, one strategy is to build a classifier that can accuratley predict wins and losses. Then, we can examine the feature importances/coefficents and determine which factors are most influential in determining match outcomes. Since we care less about the actual prediction and more about the features, a good choice would be to work with with models like decision trees and logistic regression since these models can be easily interpreted.
