@@ -25,7 +25,7 @@ This is not a surprising result. In fact, this indicates that what it takes to w
 Refer to the [EDA code](https://github.com/sophiacofone/omnic_ml/blob/main/EDA/eda.py) for more information on the EDA process and how these visuals were generated.
 
 ## What should players focus on to win a round of Valorant?
-To answer this question, one strategy is to build a classifier that can accuratley predict wins and losses. Then, we can examine the feature importances/coefficents and determine which factors are most influential in determining match outcomes. Since we care less about the actual prediction and more about the features, a good choice would be to work with with models like decision trees and logistic regression since these models can be easily interpreted.
+To answer this question, one strategy is to build a classifier that can accurately predict wins and losses. Then, we can examine the feature importances/coefficients and determine which factors are most influential in determining match outcomes. Since we care less about the actual prediction and more about the features, a good choice would be to work with with models like decision trees and logistic regression since these models can be easily interpreted.
 
 ### Data & Preprocessing
 Refer to the [preprocess section](https://github.com/sophiacofone/omnic_ml/edit/main/preprocess/preprocess.md) for information on overall data preprocessing. In addition to these steps, `win_loss/win_loss_data_preprocessing.py` drops some irrelevant columns (`['player','round_number']`), re-maps the true/false strings to 1 and 0, and one-hot encodes the other categorial features (`'map','self_character','ally4_character','ally1_character','ally2_character','ally3_character','opponent5_character', 'opponent6_character','opponent7_character','opponent8_character','opponent9_character','round_info_ally_side','self_longest_inv_state','self_longest_gun_primary','self_longest_gun_secondary','self_post_spike_longest_inv_state','self_pre_spike_longest_inv_state','self_post_spike_longest_gun_secondary','self_pre_spike_longest_gun_secondary','self_post_spike_longest_gun_primary','self_pre_spike_longest_gun_primary']`). Finally, I added a feature to capture round length (`['round_info_round_length']`). `win_loss/win_loss_data_preprocessing.py`outputs a csv per dataset, and a combined csv for all the datasets. These csvs are the input data for the modeling below. The combined dataframe has 28959 rows × 542 columns.
@@ -58,14 +58,15 @@ Log reg is sensitive to class imbalance. My first step was to ensure my target w
 Since we are ultimately interested in the **features** of this model, I decided to incorporate feature selection into this process. I first trained a logistic regression model using L1 regularization. L1 regularization has the benefit of driving some feature weights to zero, effectively excluding them from the model. I decided to further eliminate features by only including features with coefs that were above the median value. Then, I used those features to create a new model using L2 regularization. L2 regularization prevents overfitting and is less sensitive to outliers than L1. In both cases, I used cross validation to tune the "C" hyper parameter (controls the strength of the regularization).
 
 ### Results
-| Data Sub-Set | Main Selected Features                                            |
-|--------------|--------------------------------------------------------------|
-| All          | Deaths, Health                                               |
-| No Deaths    | Eliminations                                                 |
-| Attack       | Deaths, Health, Ability use                                  |
-| Defend       | Deaths, Health, Ammo use          |
-| Pre-Spike    | Deaths, Health, Gun use                                      |
-| Post-Spike   | Deaths, Health, Credits           |
+<img src="logreg_csv_feature_results/feat_vis_all.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_no_deaths.png" alt="" width="400"/>
+
+<img src="logreg_csv_feature_results/feat_vis_attack.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_defend.png" alt="" width="400"/>
+
+<img src="logreg_csv_feature_results/feat_vis_prespike.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_postspike.png" alt="" width="400"/>
+
 ####  What should player's focus on to win a round of Valorant?: All data
 Refer to [results section](https://github.com/sophiacofone/omnic_ml/tree/main/win_loss/logreg_csv_feature_results) for all of the generated feature coefs. The magnitude indicates the "importance" of the feature.
 
@@ -81,28 +82,7 @@ Please see [win_loss_applied](https://github.com/sophiacofone/omnic_ml/blob/main
 <img src="logreg_csv_feature_results/confusion_mat_all.png" alt="" width="400"/>
 
 ##### Top 20 important features combined
-|   Feature                                 |   coef                 |
-|-------------------------------------------|------------------------|
-|   all_opponent_dead                       |    0.9882489094383900  |
-|   ally1_post_spike_deaths                 |   -0.9385987971353920  |
-|   ally1_pre_spike_deaths                  |   -0.898857198849475   |
-|   self_pre_spike_avg_health               |   0.8439591098285130   |
-|   ally2_pre_spike_deaths                  |   -0.8429755584496300  |
-|   ally3_pre_spike_deaths                  |   -0.7493854195499950  |
-|   opponent3_pre_spike_deaths              |   0.7336340167650350   |
-|   ally4_post_spike_deaths                 |   -0.7312162146760140  |
-|   opponent1_pre_spike_deaths              |   0.7242236307036010   |
-|   ally4_pre_spike_deaths                  |   -0.7183141248410150  |
-|   opponent4_pre_spike_deaths              |   0.712433619067903    |
-|   opponent2_pre_spike_deaths              |   0.6835489056728720   |
-|   self_longest_inv_state_melee            |   -0.6757866540937680  |
-|   opponent0_pre_spike_deaths              |   0.6723183751844650   |
-|   all_ally_dead                           |   -0.6680610650312690  |
-|   self_pre_spike_longest_inv_state_melee  |   0.6370944054678590   |
-|   self_pre_spike_deaths                   |   -0.6368605941682240  |
-|   ally3_post_spike_deaths                 |   -0.6307989473994810  |
-|   ally3_post_spike_total_health_loss      |   0.6061965632616760   |
-|   self_post_spike_total_health_loss       |   -0.5753664427197250  |
+<img src="logreg_csv_feature_results/feat_vis_all.png" alt="" width="400"/>
 
 These features indicate that from an overall perspective, your team not dying, your opponents dying, and health are the most important predictor for winning rounds of Valorant. This may seem obvious, but in Valorant there are multiple ways to win with elims/deaths being only one of them. These results could justify playing more "defensively", i.e. not dying versus trying to get lots of elims by taking risky moves.
 
@@ -119,29 +99,7 @@ I wanted to also see what without using deaths as a feature, could the model sti
 <img src="logreg_csv_feature_results/confusion_mat_nod.png" alt="" width="400"/>
 
 ##### Top 20 important features combined - no deaths
-|   Feature                                 |   Coef                 |
-|-------------------------------------------|------------------------|
-|   ally1_post_spike_deaths                 |   -1.6703996301272200  |
-|   opponent1_pre_spike_elims               |   -1.2798674405305800  |
-|   ally3_pre_spike_elims                   |   1.2300565204608700   |
-|   ally2_pre_spike_elims                   |   1.18446367741373     |
-|   ally1_pre_spike_elims                   |   1.1376096807716800   |
-|   ally4_pre_spike_elims                   |   1.110000294505390    |
-|   opponent3_pre_spike_elims               |   -1.0996632153713400  |
-|   opponent2_pre_spike_elims               |   -1.0983541264935200  |
-|   opponent4_pre_spike_elims               |   -1.0707871269108400  |
-|   self_pre_spike_elims                    |   1.0310610615631100   |
-|   all_opponent_dead                       |   0.9966485067026910   |
-|   opponent0_pre_spike_elims               |   -0.9925280504564480  |
-|   opponent2_post_spike_elims              |   -0.9839914759272690  |
-|   opponent3_post_spike_elims              |   -0.9092449766110730  |
-|   self_pre_spike_avg_health               |   0.8348623251219470   |
-|   opponent1_post_spike_elims              |   -0.8298465815564710  |
-|   ally3_post_spike_elims                  |   0.806710343293057    |
-|   self_longest_inv_state_melee            |   -0.7441413663323180  |
-|   self_pre_spike_longest_inv_state_melee  |   0.714229161153148    |
-|   all_ally_dead                           |   -0.6919451999149420  |
-|   opponent4_post_spike_elims              |   -0.6881325572874230  |
+<img src="logreg_csv_feature_results/feat_vis_no_deaths.png" alt="" width="400"/>
 
 The model does still predict well, but this time it appears to be focusing on elims rather than deaths. 
 
@@ -166,30 +124,9 @@ Please see [stratified_df](https://github.com/sophiacofone/omnic_ml/blob/main/wi
 <img src="logreg_csv_feature_results/confusion_mat_attack.png" alt="" width="400"/>
 
 ##### Top 20 important features combined: Attack
-| Feature                                 | Coef                   |
-| --------------------------------------- | ---------------------- |
-|   ally1_post_spike_deaths               |   -1.6703996301272200  |
-|   ally4_post_spike_deaths               |   -1.3721565846202400  |
-|   ally3_post_spike_deaths               |   -1.2383865192985900  |
-|   ally2_post_spike_deaths               |   -1.207032117040700   |
-|   round_info_round_length               |   -1.1651121582417600  |
-|   opponent3_post_spike_deaths           |   1.1507132924721000   |
-|   all_opponent_dead                     |   1.1307786860961700   |
-|   self_post_spike_deaths                |   -1.0733820756241300  |
-|   post_spike_crowd_control_vision_used  |   1.0404368913979500   |
-|   ally3_post_spike_total_health_loss    |   0.9989532836984400   |
-|   opponent1_pre_spike_deaths            |   0.9508902263537160   |
-|   ally1_pre_spike_deaths                |   -0.9486844033856280  |
-|   opponent2_pre_spike_deaths            |   0.9350685482106680   |
-|   opponent0_pre_spike_deaths            |   0.92489327480526     |
-|   opponent3_pre_spike_deaths            |   0.9223488365584660   |
-|   self_post_spike_max_health_loss       |   -0.8862837203866290  |
-|   opponent4_post_spike_deaths           |   0.8185005839381280   |
-|   opponent4_pre_spike_deaths            |   0.7785656109722340   |
-|   all_ally_dead                         |   -0.7726353504666180  |
-|   ally4_pre_spike_deaths                |   -0.7697123673928790  |
+<img src="logreg_csv_feature_results/feat_vis_attack.png" alt="" width="400"/>
 
-Similar to the analysis above, we see deaths/not dying as the best thing to focus on. However, we do see some ability use here.
+Similar to the analysis above, we see deaths/not dying as the best thing to focus on. However, we do see some ability use here and a round-length related feature.
 
 ##### Metrics
 | Metric         | Result   |
@@ -201,30 +138,7 @@ Similar to the analysis above, we see deaths/not dying as the best thing to focu
 <img src="logreg_csv_feature_results/confusion_mat_defend.png" alt="" width="400"/>
 
 ##### Top 20 important features combined: Defend
-| Feature                                 | Coef                   |
-| --------------------------------------- | ---------------------- |
-|   ally1_post_spike_deaths                     |   -1.6703996301272200  |
-|   self_post_spike_total_health_loss           |   -1.4048513997774400  |
-|   all_opponent_dead                           |   1.2895060099724600   |
-|   self_longest_gun_primary_phantom            |   -1.178260381814890   |
-|   self_longest_inv_state_melee                |   -1.1680928617356300  |
-|   ally3_post_spike_total_health_loss          |   1.143035643510180    |
-|   self_post_spike_total_ammo_reserve_loss     |   1.0866869332501200   |
-|   self_pre_spike_longest_gun_primary_phantom  |   1.0694273048158000   |
-|   self_pre_spike_longest_inv_state_melee      |   1.0603282172138800   |
-|   post_spike_crowd_control_vision_used        |   1.0171755104521000   |
-|   post_spike_damage_for_team_used             |   0.870745813765667    |
-|   ally4_post_spike_elims                      |   0.838567585409549    |
-|   ally4_post_spike_deaths                     |   -0.8037460538647530  |
-|   self_pre_spike_avg_health                   |   0.8026429247463740   |
-|   self_pre_spike_longest_gun_primary_odin     |   0.7753015792331070   |
-|   opponent3_pre_spike_elims                   |   -0.7384452951607550  |
-|   self_post_spike_max_ammo_reserve_loss       |   -0.7345382915075390  |
-|   self_pre_spike_deaths                       |   -0.7220809635938230  |
-|   ally2_pre_spike_deaths                      |   -0.7113390993033230  |
-|   ally1_post_spike_deaths                     |   -0.7102710207246480  |
-|   ally1_post_spike_total_health_loss          |   0.7024308528414130   |
-|   opponent1_pre_spike_deaths                  |   0.6753087258632680   |
+<img src="logreg_csv_feature_results/feat_vis_defend.png" alt="" width="400"/>
 
 Here, we see some differences. Deaths/health is still the highest, but we start to see ammo, gun usage, ability usage, and elims.
 
@@ -240,30 +154,7 @@ Here, we see some differences. Deaths/health is still the highest, but we start 
 <img src="logreg_csv_feature_results/confusion_mat_pres.png" alt="" width="400"/>
 
 ##### Top 20 important features combined: Pre-Spike
-| Feature                                        | Coef                    |
-| ---------------------------------------------- | ----------------------- |
-|   ally1_post_spike_deaths                      |   -1.6703996301272200   |
-|   all_opponent_dead                            |   1.6855836963388600    |
-|   all_ally_dead                                |   -1.6139346397139800   |
-|   self_longest_gun_secondary_ghost             |   -0.9951241240938690   |
-|   self_pre_spike_longest_gun_secondary_ghost   |   0.9783090842880590    |
-|   opponent1_pre_spike_deaths                   |   0.5863409737695190    |
-|   opponent3_pre_spike_deaths                   |   0.5721287494268150    |
-|   opponent4_pre_spike_deaths                   |   0.5464931983882780    |
-|   ally1_pre_spike_deaths                       |   -0.5261706588499960   |
-|   ally2_pre_spike_deaths                       |   -0.4915017959346170   |
-|   opponent2_pre_spike_deaths                   |   0.4696511872098220    |
-|   opponent0_pre_spike_deaths                   |   0.46936088048022200   |
-|   map_unknown                                  |   -0.4588306637063800   |
-|   self_pre_spike_longest_gun_primary_judge     |   0.44560968659553200   |
-|   ally4_pre_spike_deaths                       |   -0.44503439143329000  |
-|   ally3_pre_spike_deaths                       |   -0.4195541890113650   |
-|   self_longest_inv_state_primary               |   0.41246459682815700   |
-|   self_pre_spike_avg_health                    |   0.4050623954135690    |
-|   self_longest_gun_primary_operator            |   -0.3964144448018260   |
-|   self_longest_gun_primary_judge               |   -0.39233111767187600  |
-|   self_pre_spike_longest_gun_primary_operator  |   0.3753082448642650    |
-|   opponent1_pre_spike_deaths                   |   0.6753087258632680    |
+<img src="logreg_csv_feature_results/feat_vis_prespike.png" alt="" width="400"/>
 
 We still see deaths/health as big predictors, but with a lot more gun-related features.
 
@@ -277,30 +168,7 @@ We still see deaths/health as big predictors, but with a lot more gun-related fe
 <img src="logreg_csv_feature_results/confusion_mat_posts.png" alt="" width="400"/>
 
 ##### Top 20 important features combined: Post-Spike
-| Feature                                    | Coef                    |
-| ------------------------------------------ | ----------------------- |
-|   ally1_post_spike_deaths                  |   -1.6703996301272200   |
-|   all_opponent_dead                        |   1.988560477374960     |
-|   all_ally_dead                            |   -1.8306075999282400   |
-|   ally3_post_spike_total_health_loss       |   0.5748347432541790    |
-|   ally1_post_spike_deaths                  |   -0.5371718797330310   |
-|   self_post_spike_total_health_loss        |   -0.5158301434749740   |
-|   self_post_spike_avg_credits              |   0.5001711474262690    |
-|   ally4_post_spike_deaths                  |   -0.4193000369542100   |
-|   self_post_spike_total_ammo_reserve_loss  |   0.40222373910636200   |
-|   opponent1_post_spike_elims               |   -0.39497056505775300  |
-|   spike_planted                            |   -0.3861514073713010   |
-|   ally1_post_spike_total_health_loss       |   0.34890964274876600   |
-|   self_post_spike_longest_inv_state_none   |   -0.3407263419872230   |
-|   ally4_post_spike_avg_health              |   0.31998347356295800   |
-|   self_post_spike_total_ability_usage_4    |   0.305710216622554     |
-|   ally3_post_spike_deaths                  |   -0.2944827300192010   |
-|   ally3_post_spike_elims                   |   0.29382870545559900   |
-|   post_spike_damage_for_team_used          |   0.2933489639029770    |
-|   opponent4_post_spike_headshots           |   -0.29046241197795200  |
-|   ally1_post_spike_avg_health              |   0.27804356679877700   |
-|   self_post_spike_max_ammo_reserve_loss    |   -0.27191360986471900  |
-|   opponent1_pre_spike_deaths               |   0.6753087258632680    |
+<img src="logreg_csv_feature_results/feat_vis_postspike.png" alt="" width="400"/>
 
 We still see deaths/health as big predictors, but also credits (for the first time), ability usage, headshots.
 
