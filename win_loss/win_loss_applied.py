@@ -91,6 +91,11 @@ def prune_tree(csv_in,csv_out,min_samples_leaf,min_samples_split,max_depth):
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_post_spike.csv','df_coefs_logreg_postspike.csv')
 # run_logreg_process('win_loss/csv/wl_alldf_prepro_data_no_deaths.csv','df_coefs_logreg_no_deaths.csv')
 
+# run_logreg_process('win_loss/csv/sentinels_df.csv','df_coefs_logreg_sentinels.csv')
+# run_logreg_process('win_loss/csv/controllers_df.csv','df_coefs_logreg_controllers.csv')
+# run_logreg_process('win_loss/csv/duelists_df.csv','df_coefs_logreg_duelists.csv')
+# run_logreg_process('win_loss/csv/initiators_df.csv','df_coefs_logreg_initiators.csv')
+
 
 ############# Decision Tree ##############
 # run_decisiontree_process('win_loss/csv/wl_alldf_prepro_data.csv')

@@ -39,13 +39,13 @@ def vis(csv_in):
     ax = sns.barplot(x='abs_coef', y='feature', data=df_sorted, hue='group', dodge=False, palette=specific_colors)
     plt.xlabel('Coefficient Value')
     plt.ylabel('Feature')
-    plt.title('Top 20 Feature Importance with Feature-type Grouping No-death Data')
+    plt.title('Top 20 Feature Importance with Feature-type Grouping Sentinels Data')
     plt.tight_layout()
 
     # legend
     handles, labels = ax.get_legend_handles_labels()
     ax.legend(handles=handles[:len(groups)], labels=labels[:len(groups)])
-    plt.savefig('win_loss/logreg_csv_feature_results/feat_vis_no_deaths', dpi=600, bbox_inches='tight')
+    plt.savefig('win_loss/logreg_csv_feature_results/feat_vis_sentinels', dpi=600, bbox_inches='tight')
     plt.show()
 
-vis('win_loss/logreg_csv_feature_results/df_coefs_logreg_no_deaths.csv')
+vis('win_loss/logreg_csv_feature_results/df_coefs_logreg_sentinels.csv')

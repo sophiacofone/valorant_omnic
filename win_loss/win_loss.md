@@ -353,14 +353,65 @@ We still see deaths/health as big predictors, but also attacking side, credits, 
 ## Do strategies change depending on what "role" you are playing as?
 Lastly, after successfully showing that Valorant players can be classified into 4 roles (Valorant classes) based on gameplay alone, I became curious if this would alter strategy. So, I decided to do a final permutation where I break up my data into the 4 classes and try to predict match outcomes.
 
-I focused on the decision tree model for this question, following the same process as outlined above.
+### Results: Log reg
+<img src="logreg_csv_feature_results/feat_vis_sentinels.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_controllers.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_duelists.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_initiators.png" alt="" width="400"/>
 
-### Results
+##### Metrics: Sentinels
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 97%      |
+| Test Accuracy  | 96%      |
+| Train F1       | 97%      |
+| Test F1        | 96%      |
+<img src="logreg_csv_feature_results/confusion_mat_all.png" alt="" width="400"/>
+
+##### Top 20 important features combined: Sentinels
+<img src="logreg_csv_feature_results/feat_vis_sentinels.png" alt="" width="400"/>
+
+##### Metrics: Controllers
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 97%      |
+| Test Accuracy  | 95%      |
+| Train F1       | 97%      |
+| Test F1        | 95%      |
+<img src="logreg_csv_feature_results/confusion_controllers.png" alt="" width="400"/>
+
+##### Top 20 important features combined: Controllers
+<img src="logreg_csv_feature_results/feat_vis_controllers.png" alt="" width="400"/>
+
+##### Metrics: Duelists
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 94%      |
+| Test Accuracy  | 92%      |
+| Train F1       | 94%      |
+| Test F1        | 92%      |
+<img src="logreg_csv_feature_results/confusion_mat_duelists.png" alt="" width="400"/>
+
+##### Top 20 important features combined: Duelists
+<img src="logreg_csv_feature_results/feat_vis_duelists.png" alt="" width="400"/>
+
+##### Metrics: Initiators
+| Metric         | Result   |
+| -------------- | -------- |
+| Train Accuracy | 97%      |
+| Test Accuracy  | 95%      |
+| Train F1       | 97%      |
+| Test F1        | 95%      |
+<img src="logreg_csv_feature_results/confusion_mat_initiators.png" alt="" width="400"/>
+
+##### Top 20 important features combined: Initiators
+<img src="logreg_csv_feature_results/feat_vis_initiators.png" alt="" width="400"/>
+
+### Results: Decision tree
 <img src="dtree_csv_feature_results/feat_vis_sentinels_4.png" alt="" width="400"/>
-<img src="dtree_csv_feature_results/feat_vis_initiators_4.png" alt="" width="400"/>
 <img src="dtree_csv_feature_results/feat_vis_controllers_4.png" alt="" width="400"/>
 <img src="dtree_csv_feature_results/feat_vis_duelists_4.png" alt="" width="400"/>
-
+<img src="dtree_csv_feature_results/feat_vis_initiators_4.png" alt="" width="400"/>
 
 ##### Metrics: Sentinels, tuned, no pruning
 | Metric         | Result   |
@@ -424,8 +475,6 @@ Major Features are: Deaths, Health, Shield, Spike_time
 <img src="dtree_csv_feature_results/feat_vis_duelists_4.png" alt="" width="400"/>
 
 Major Features are: Deaths, Health, Eliminations, Ammo 
-
-
 
 ##### Metrics: Initiators, tuned, no pruning
 | Metric         | Result   |
