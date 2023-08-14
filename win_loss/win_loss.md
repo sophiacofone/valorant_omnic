@@ -200,14 +200,14 @@ Lastly, (as previously mentioned) I experimented with pruning (setting a maximum
 Please see [win_loss_model](https://github.com/sophiacofone/omnic_ml/blob/main/win_loss/win_loss_model.py) for the modeling code.
 
 ### Results
-| Data Sub-Set | Main Selected Features                                            |
-|--------------|--------------------------------------------------------------|
-| All          | Deaths, Health, Credits, Map % covered                                         |
-| No Deaths    | Health, Eliminations                                                 |
-| Attack       | Deaths, Health, Credits, Eliminations
-| Defend       | Deaths, Health, Spike_time, Credits |
-| Pre-Spike    | Deaths, Health, Ammo, Movement %                                      |
-| Post-Spike   | Deaths, Health, Credits, Assists            |
+<img src="dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="400"/>
+
+<img src="dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_defend_5.png" alt="" width="400"/>
+
+<img src="dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="400"/>
 
 ####  What should player's focus on to win a round of Valorant?: All data
 As before, please refer to [results section](https://github.com/sophiacofone/omnic_ml/tree/main/win_loss/dtree_csv_feature_results) for all of the generated feature importances.
@@ -231,28 +231,7 @@ Please see [win_loss_applied](https://github.com/sophiacofone/omnic_ml/blob/main
 <img src="dtree_csv_feature_results/confusion_mat_all.png" alt="" width="400"/>
 
 ##### Top 20 important features combined
-| Feature                              | Importance               |
-|--------------------------------------|--------------------------|
-|   all_opponent_dead                  |   0.5622840678490050     |
-|   all_ally_dead                      |   0.2273113477972850     |
-|   self_post_spike_total_health_loss  |   0.07888739556467370    |
-|   self_pre_spike_total_health_loss   |   0.05253737646689780    |
-|   ally2_pre_spike_deaths             |   0.02579466734878280    |
-|   self_post_spike_avg_credits        |   0.02201917412002120    |
-|   ally1_pre_spike_deaths             |   0.011124641299069800   |
-|   ally4_post_spike_max_health_loss   |   0.0037713620579577200  |
-|   self_post_spike_map_covered        |   0.0026900558208574400  |
-|   ally2_post_spike_assists           |   0.002209893101311710   |
-|   self_pre_spike_headshots           |   0.0017404518961157800  |
-|   ally2_post_spike_elims             |   0.0016728803101759800  |
-|   ally4_post_spike_avg_health        |   0.0014053368746943300  |
-|   ally3_post_spike_avg_health        |   0.0011603012640771900  |
-|   opponent0_post_spike_elims         |   0.0010885228448278200  |
-|   ally4_pre_spike_total_health_loss  |   0.0010772724598542700  |
-|   ally3_pre_spike_avg_health         |   0.0007096746058738760  |
-|   self_pre_spike_total_shield_loss   |   0.0006163000584282590  |
-|   ally4_pre_spike_max_health_loss    |   0.0006153740632695090  |
-|   self_pre_spike_assists             |   0.0005510815716306480  |
+<img src="dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="400"/>
 
 Similar to the logistic regression model, these features indicate that from an overall perspective your team not dying, your opponents dying, and health are the most important predictors for wining rounds of Valorant. After those features, the model starts using credits, % map covered, assists, and elims. 
 
@@ -276,28 +255,7 @@ I wanted to also see what without using deaths as a feature, could the model sti
 <img src="dtree_csv_feature_results/confusion_mat_nodeaths.png" alt="" width="400"/>
 
 ##### Top 20 important features combined - no deaths
-| Feature                               | Importance               |
-|---------------------------------------|--------------------------|
-|   self_post_spike_total_health_loss   |   0.31582639606061500    |
-|   self_pre_spike_total_health_loss    |   0.28875960521342700    |
-|   self_post_spike_avg_credits         |   0.08891139935371020    |
-|   ally2_pre_spike_elims               |   0.0477550661912334     |
-|   ally3_pre_spike_elims               |   0.04187291851682670    |
-|   ally4_pre_spike_elims               |   0.028845329618753100   |
-|   self_post_spike_avg_health          |   0.02492653404779900    |
-|   ally1_pre_spike_elims               |   0.021933599318584600   |
-|   round_info_ally_side_attacker       |   0.01761772679865010    |
-|   self_post_spike_max_health_loss     |   0.014430371014569700   |
-|   ally1_post_spike_total_health_loss  |   0.011119934315616500   |
-|   self_post_spike_assists             |   0.00994232445960613    |
-|   opponent3_post_spike_headshots      |   0.009883189105565110   |
-|   opponent1_post_spike_elims          |   0.00881370479226952    |
-|   opponent2_pre_spike_elims           |   0.008662255585700720   |
-|   opponent4_post_spike_elims          |   0.008243363174679310   |
-|   ally4_post_spike_max_health_loss    |   0.0065081302955400800  |
-|   ally2_post_spike_elims              |   0.0062549089924971000  |
-|   ally4_post_spike_elims              |   0.005901501801658560   |
-|   opponent2_post_spike_assists        |   0.00549376100049144    |
+<img src="dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="400"/>
 
 This model does not predict as well after pruning. After Health loss, this model also focuses on elims.
 
@@ -323,27 +281,7 @@ Please see [stratified_df](https://github.com/sophiacofone/omnic_ml/blob/main/wi
 <img src="dtree_csv_feature_results/confusion_mat_attack.png" alt="" width="400"/>
 
 ##### Top 20 important features combined: Attack
-| Feature                                  | Importance                |
-|------------------------------------------|---------------------------|
-|   all_ally_dead                          |   0.49676728007159500     |
-|   all_opponent_dead                      |   0.22231105975151200     |
-|   self_pre_spike_total_health_loss       |   0.11095798321942200     |
-|   self_post_spike_avg_credits            |   0.06074763365712760     |
-|   self_post_spike_deaths                 |   0.046578269731772500    |
-|   ally4_pre_spike_deaths                 |   0.009963608972048250    |
-|   ally1_post_spike_total_health_loss     |   0.009660135432341860    |
-|   ally4_post_spike_total_health_loss     |   0.007844282031773470    |
-|   opponent1_post_spike_first_bloods      |   0.007705316271720350    |
-|   ally1_pre_spike_elims                  |   0.00674041611910913     |
-|   ally3_post_spike_deaths                |   0.006174695106967520    |
-|   self_pre_spike_headshots               |   0.0031599007867357000   |
-|   user_id                                |   0.002311614953270460    |
-|   ally1_pre_spike_total_health_loss      |   0.002068224104462050    |
-|   opponent1_ultimate_usage               |   0.0018453999154695400   |
-|   ally3_pre_spike_avg_health             |   0.0009588967303739750   |
-|   ally1_post_spike_elims                 |   0.0009396665375589360   |
-|   self_pre_spike_movement_metric         |   0.0008406030088691890   |
-|   self_post_spike_max_ammo_reserve_loss  |   0.0008040981522628090   |
+<img src="dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="400"/>
 
 Similar to the analysis above, we see deaths/not dying/health as the best thing to focus on. However, we do see credits, elims, ability use, movement, and ammo.
 
@@ -364,28 +302,7 @@ Similar to the analysis above, we see deaths/not dying/health as the best thing 
 <img src="dtree_csv_feature_results/confusion_mat_defend.png" alt="" width="400"/>
 
 ##### Top 20 important features combined: Defend
-| Feature                                    | Importance               |
-|--------------------------------------------|--------------------------|
-|   all_ally_dead                            |   0.5424268289601420     |
-|   all_opponent_dead                        |   0.22276433599465900    |
-|   self_pre_spike_total_health_loss         |   0.0935347860128104     |
-|   self_post_spike_total_health_loss        |   0.04721171715932880    |
-|   spike_time                               |   0.03724128313832150    |
-|   opponent1_pre_spike_deaths               |   0.012197742290977600   |
-|   ally4_post_spike_max_health_loss         |   0.010542252455186100   |
-|   ally1_post_spike_total_health_loss       |   0.007398771093428020   |
-|   ally2_post_spike_deaths                  |   0.006326503928391290   |
-|   self_post_spike_avg_credits              |   0.004334172365594340   |
-|   self_post_spike_total_shield_loss        |   0.002563361824531640   |
-|   ally4_pre_spike_avg_health               |   0.00218479096583692    |
-|   opponent2_pre_spike_headshots            |   0.0018462102374419100  |
-|   ally4_pre_spike_total_health_loss        |   0.0017627016797871700  |
-|   self_pre_spike_total_ammo_mag_loss       |   0.0013313225594919400  |
-|   self_pre_spike_avg_loadout_value         |   0.0012452141909295800  |
-|   ally3_pre_spike_total_health_loss        |   0.0010148915823726200  |
-|   self_pre_spike_longest_gun_primary_none  |   0.0008833539099842530  |
-|   self_pre_spike_total_ability_usage_3     |   0.0007852034755415590  |
-|   round_info_round_length                  |   0.0007662888826076610  |
+<img src="dtree_csv_feature_results/feat_vis_defend_5.png" alt="" width="400"/>
 
 Here, we see some differences with spike_time, credits, shield, loadout value.
 
@@ -408,28 +325,7 @@ Here, we see some differences with spike_time, credits, shield, loadout value.
 <img src="dtree_csv_feature_results/confusion_mat_pres.png" alt="" width="400"/>
 
 ##### Top 20 important features combined: Pre-Spike
-| Feature                                 | Importance                |
-|-----------------------------------------|---------------------------|
-|   all_opponent_dead                     |   0.5864811183074020      |
-|   all_ally_dead                         |   0.23709335028840600     |
-|   self_pre_spike_total_health_loss      |   0.05479824356595040     |
-|   spike_planted                         |   0.03319837451868730     |
-|   ally2_pre_spike_deaths                |   0.02426883741788350     |
-|   round_info_ally_side_defender         |   0.02344223769422470     |
-|   ally1_pre_spike_deaths                |   0.01818402869285020     |
-|   round_info_round_length               |   0.007737994203546460    |
-|   self_pre_spike_map_covered            |   0.003619079556952700    |
-|   self_pre_spike_max_ammo_reserve_loss  |   0.0021414621094502700   |
-|   self_longest_inv_state_melee          |   0.001680049485655450    |
-|   ally2_pre_spike_elims                 |   0.001340261105628430    |
-|   self_pre_spike_avg_shield             |   0.0011978462311038      |
-|   ally3_pre_spike_max_health_loss       |   0.0009076748148840770   |
-|   opponent8_character_breach            |   0.000819649753192898    |
-|   ally3_pre_spike_avg_health            |   0.0007378068393542700   |
-|   self_pre_spike_avg_credits            |   0.000700366369509319    |
-|   spike_time                            |   0.0006067974225428740   |
-|   self_pre_spike_assists                |   0.000570047872594907    |
-|   ally4_pre_spike_deaths                |   0.00043275176800984900  |
+<img src="dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="400"/>
 
 We still see deaths/health as big predictors, but we also see spike information, round length information, map covered, ammo, shield, credits.
 
@@ -450,28 +346,7 @@ We still see deaths/health as big predictors, but we also see spike information,
 <img src="dtree_csv_feature_results/confusion_mat_posts.png" alt="" width="400"/>
 
 ##### Top 20 important features combined: Post-Spike
-| Feature                                   | Importance               |
-|-------------------------------------------|--------------------------|
-|   all_opponent_dead                       |   0.6280400593330800     |
-|   all_ally_dead                           |   0.2538941444736540     |
-|   self_post_spike_avg_credits             |   0.03714718395035830    |
-|   self_post_spike_deaths                  |   0.02742440874280730    |
-|   round_info_ally_side_attacker           |   0.014867463355890300   |
-|   self_post_spike_longest_inv_state_none  |   0.01094221911780830    |
-|   opponent2_post_spike_assists            |   0.004798871877568960   |
-|   ally1_post_spike_max_health_loss        |   0.00446174679437581    |
-|   ally4_post_spike_max_health_loss        |   0.0042124018553596000  |
-|   ally2_post_spike_assists                |   0.002468327796974460   |
-|   ally2_post_spike_elims                  |   0.0018685143494803800  |
-|   ally3_character_reyna                   |   0.0016012022906741300  |
-|   ally2_post_spike_headshots              |   0.0012959920374819800  |
-|   opponent0_post_spike_elims              |   0.0012158195316938300  |
-|   ally4_post_spike_avg_health             |   0.001205967223724770   |
-|   self_post_spike_total_health_loss       |   0.0011868985078241100  |
-|   opponent2_post_spike_headshots          |   0.0009396836676187030  |
-|   round_info_round_length                 |   0.0009174824635377740  |
-|   ally1_post_spike_elims                  |   0.0008730893726194370  |
-|   user_id                                 |   0.0005531789542340350  |
+<img src="dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="400"/>
 
 We still see deaths/health as big predictors, but also attacking side, credits, ability assists, elims.
 
@@ -481,12 +356,11 @@ Lastly, after successfully showing that Valorant players can be classified into 
 I focused on the decision tree model for this question, following the same process as outlined above.
 
 ### Results
-| Data Sub-Set | Main Selected Features                                            |
-|--------------|--------------------------------------------------------------|
-| Sentinels          | Deaths, Health, Credits, Eliminations                                         |
-| Controllers    | Deaths, Health, Shield, Spike_time                                               |
-| Duelists       | Deaths, Health, Eliminations, Ammo 
-| Initiators       | Deaths, Health, Eliminations, Ammo |
+<img src="dtree_csv_feature_results/feat_vis_sentinels_4.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_initiators_4.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_controllers_4.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_duelists_4.png" alt="" width="400"/>
+
 
 ##### Metrics: Sentinels, tuned, no pruning
 | Metric         | Result   |
@@ -505,21 +379,7 @@ I focused on the decision tree model for this question, following the same proce
 <img src="dtree_csv_feature_results/confusion_mat_sentinels.png" alt="" width="400"/>
 
 ##### Top 13 important features combined: Sentinels
-| Feature                                         | Importance               |
-|-------------------------------------------------|--------------------------|
-|   all_opponent_dead                             |   0.6466329098541790     |
-|   all_ally_dead                                 |   0.16605410217630400    |
-|   self_post_spike_total_health_loss             |   0.08102841907642800    |
-|   self_pre_spike_avg_health                     |   0.04821851694769530    |
-|   ally2_pre_spike_deaths                        |   0.024802251548501400   |
-|   ally4_post_spike_total_health_loss            |   0.00914601419145723    |
-|   self_post_spike_avg_credits                   |   0.008933718120848090   |
-|   ally3_pre_spike_elims                         |   0.005158124225424690   |
-|   ally4_pre_spike_deaths                        |   0.003528040915268060   |
-|   ally1_pre_spike_total_health_loss             |   0.002553814996320940   |
-|   self_post_spike_longest_gun_secondary_shorty  |   0.0018790939417949200  |
-|   self_pre_spike_avg_ammo_mag                   |   0.0013899905001127000  |
-|   ally1_post_spike_elims                        |   0.0006750035056651190  |
+<img src="dtree_csv_feature_results/feat_vis_sentinels_4.png" alt="" width="400"/>
 
 Major Features are: Deaths, Health, Credits, Elims 
 
@@ -540,22 +400,7 @@ Major Features are: Deaths, Health, Credits, Elims
 <img src="dtree_csv_feature_results/confusion_mat_controllers.png" alt="" width="400"/>
 
 ##### Top 13 important features combined: Controllers
-| Feature                              | Importance               |
-|--------------------------------------|--------------------------|
-|   all_opponent_dead                  |   0.5313251546593850     |
-|   all_ally_dead                      |   0.21802057880589000    |
-|   self_post_spike_total_health_loss  |   0.10772456083419200    |
-|   self_pre_spike_total_health_loss   |   0.08137508163848770    |
-|   ally2_pre_spike_deaths             |   0.023773004750971000   |
-|   self_post_spike_avg_shield         |   0.011771360307104600   |
-|   spike_time                         |   0.0072919269090518500  |
-|   ally2_post_spike_deaths            |   0.004013170041574490   |
-|   ally2_pre_spike_avg_health         |   0.003803743087406730   |
-|   self_longest_inv_state_melee       |   0.0029526883751678100  |
-|   ally2_post_spike_assists           |   0.0027898924856679400  |
-|   self_pre_spike_avg_loadout_value   |   0.0022700759831128400  |
-|   ally1_pre_spike_total_health_loss  |   0.0020018028213818300  |
-|   opponent1_pre_spike_elims          |   0.0008869593006061930  |
+<img src="dtree_csv_feature_results/feat_vis_controllers_4.png" alt="" width="400"/>
 
 Major Features are: Deaths, Health, Shield, Spike_time 
 
@@ -576,22 +421,7 @@ Major Features are: Deaths, Health, Shield, Spike_time
 <img src="dtree_csv_feature_results/confusion_mat_duelists.png" alt="" width="400"/>
 
 ##### Top 13 important features combined: Duelists
-| Feature                                | Importance               |
-|----------------------------------------|--------------------------|
-|   all_ally_dead                        |   0.5558661283941320     |
-|   all_opponent_dead                    |   0.2814103617309800     |
-|   self_post_spike_total_health_loss    |   0.06440872099054870    |
-|   self_pre_spike_total_health_loss     |   0.04763493540957710    |
-|   ally3_pre_spike_deaths               |   0.028047249420188600   |
-|   ally4_post_spike_total_health_loss   |   0.011280802431473400   |
-|   opponent0_pre_spike_assists          |   0.0038790350242521200  |
-|   self_post_spike_avg_ammo_mag         |   0.002284337415337090   |
-|   opponent2_post_spike_elims           |   0.0018716792821606200  |
-|   opponent4_post_spike_ultimate_usage  |   0.0012214041734913800  |
-|   opponent1_post_spike_headshots       |   0.0011858881424789400  |
-|   opponent4_pre_spike_elims            |   0.0004610072240330830  |
-|   round_info_round_start               |   0.0004484503613470860  |
-|   opponent1_pre_spike_elims            |   0.0008869593006061930  |
+<img src="dtree_csv_feature_results/feat_vis_duelists_4.png" alt="" width="400"/>
 
 Major Features are: Deaths, Health, Eliminations, Ammo 
 
@@ -614,21 +444,6 @@ Major Features are: Deaths, Health, Eliminations, Ammo
 <img src="dtree_csv_feature_results/confusion_mat_initiators.png" alt="" width="400"/>
 
 ##### Top 13 important features combined: Initiators
-| Feature                                 | Importance               |
-|-----------------------------------------|--------------------------|
-|   all_ally_dead                         |   0.5976543649247500     |
-|   all_opponent_dead                     |   0.2250098246834780     |
-|   self_post_spike_total_health_loss     |   0.06528313766617960    |
-|   self_pre_spike_deaths                 |   0.06375183353134430    |
-|   opponent1_pre_spike_deaths            |   0.018735085958407500   |
-|   self_post_spike_deaths                |   0.007670747512733130   |
-|   ally2_post_spike_elims                |   0.007208811202276410   |
-|   self_pre_spike_max_ammo_reserve_loss  |   0.006280862687168180   |
-|   self_pre_spike_max_ammo_mag_loss      |   0.0038895373923265100  |
-|   opponent4_post_spike_elims            |   0.002407547081122420   |
-|   round_info_round_end                  |   0.00105894589084887    |
-|   ally2_pre_spike_avg_health            |   0.0010493014693654300  |
-|   round_info_round_start                |   0.0004484503613470860  |
-|   opponent1_pre_spike_elims             |   0.0008869593006061930  |
+<img src="dtree_csv_feature_results/feat_vis_initiators_4.png" alt="" width="400"/>
 
 Major Features are: Deaths, Health, Eliminations, Ammo 
