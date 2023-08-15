@@ -58,14 +58,14 @@ Log reg is sensitive to class imbalance. My first step was to ensure my target w
 Since we are ultimately interested in the **features** of this model, I decided to incorporate feature selection into this process. I first trained a logistic regression model using L1 regularization. L1 regularization has the benefit of driving some feature weights to zero, effectively excluding them from the model. I decided to further eliminate features by only including features with coefs that were above the median value. Then, I used those features to create a new model using L2 regularization. L2 regularization prevents overfitting and is less sensitive to outliers than L1. In both cases, I used cross validation to tune the "C" hyper parameter (controls the strength of the regularization).
 
 ### Results
-<img src="logreg_csv_feature_results/feat_vis_all.png" alt="" width="400"/>
-<img src="logreg_csv_feature_results/feat_vis_no_deaths.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_all.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_no_deaths.png" alt="" width="800"/>
 
-<img src="logreg_csv_feature_results/feat_vis_attack.png" alt="" width="400"/>
-<img src="logreg_csv_feature_results/feat_vis_defend.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_attack.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_defend.png" alt="" width="800"/>
 
-<img src="logreg_csv_feature_results/feat_vis_prespike.png" alt="" width="400"/>
-<img src="logreg_csv_feature_results/feat_vis_postspike.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_prespike.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_postspike.png" alt="" width="800"/>
 
 ####  What should player's focus on to win a round of Valorant?: All data
 Refer to [results section](https://github.com/sophiacofone/omnic_ml/tree/main/win_loss/logreg_csv_feature_results) for all of the generated feature coefs. The magnitude indicates the "importance" of the feature.
