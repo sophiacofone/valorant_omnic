@@ -200,14 +200,14 @@ Lastly, (as previously mentioned) I experimented with pruning (setting a maximum
 Please see [win_loss_model](https://github.com/sophiacofone/omnic_ml/blob/main/win_loss/win_loss_model.py) for the modeling code.
 
 ### Results
-<img src="dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="400"/>
-<img src="dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="800"/>
+<img src="dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="800"/>
 
-<img src="dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="400"/>
-<img src="dtree_csv_feature_results/feat_vis_defend_5.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="800"/>
+<img src="dtree_csv_feature_results/feat_vis_defend_5.png" alt="" width="800"/>
 
-<img src="dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="400"/>
-<img src="dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="800"/>
+<img src="dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="800"/>
 
 ####  What should player's focus on to win a round of Valorant?: All data
 As before, please refer to [results section](https://github.com/sophiacofone/omnic_ml/tree/main/win_loss/dtree_csv_feature_results) for all of the generated feature importances.
