@@ -35,30 +35,30 @@ Then, I explored using both logistic regression and decision trees to try and cl
 These models were generally quite accurate, with test accuracy and F1 scores from 90%-95% depending on the permutation (see [win_condition](https://github.com/sophiacofone/omnic_ml/blob/main/win_loss/win_loss.md) for details). The summary of the feature importances are as follows:
 
 #### Logistic Regression
-| Data Sub-Set | Main Selected Features                                            |
-|--------------|--------------------------------------------------------------|
-| All          | Deaths, Health                                               |
-| No Deaths    | Eliminations                                                 |
-| Attack       | Deaths, Health, Ability use                                  |
-| Defend       | Deaths, Health, Ammo use          |
-| Pre-Spike    | Deaths, Health, Gun use                                      |
-| Post-Spike   | Deaths, Health, Credits           |
+<img src="logreg_csv_feature_results/feat_vis_all.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_no_deaths.png" alt="" width="800"/>
+
+<img src="logreg_csv_feature_results/feat_vis_attack.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_defend.png" alt="" width="800"/>
+
+<img src="logreg_csv_feature_results/feat_vis_prespike.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_postspike.png" alt="" width="800"/>
 
 #### Decision tree
-| Data Sub-Set | Main Selected Features                                            |
-|--------------|--------------------------------------------------------------|
-| All          | Deaths, Health, Credits, Map % covered                                         |
-| No Deaths    | Health, Eliminations                                                 |
-| Attack       | Deaths, Health, Credits, Eliminations
-| Defend       | Deaths, Health, Spike_time, Credits |
-| Pre-Spike    | Deaths, Health, Ammo, Movement %                                      |
-| Post-Spike   | Deaths, Health, Credits, Assists            |
+<img src="dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="800"/>
+<img src="dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="800"/>
+
+<img src="dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="800"/>
+<img src="dtree_csv_feature_results/feat_vis_defend_5.png" alt="" width="800"/>
+
+<img src="dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="800"/>
+<img src="dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="800"/>
 
 Both models relied on death and health information no matter the permutation. These features indicate that from an overall perspective, your team not dying, your opponents dying, and health are the most important predictors for winning rounds of Valorant. This may seem obvious, but in Valorant there are multiple ways to win with elims/deaths being only one of them. These results could justify playing more "defensively", i.e. not dying versus trying to get lots of elims by taking risky moves.
 
-If death information is removed, both models then relied on elimination based features.
+If death information is removed, models then relied on elimination based features.
 
-The other permutations offered some variations. Attacking side for logreg liked ability use features, while the decision tree preferred credits and eliminations. For defense, log reg considered ammo/gun use important. the decision tree model used spike_time and credits. For pre-spike, both models chose gun-related features. And finally for post-spike, both models liked credits.
+The other permutations offered some variations, in particular for post-spike and defense.
 
 In summary, the two models performed predominantly the same, although some of the finer details differed. I think this analysis could be useful if a player seems to be struggling with a particular type of round. For example, if a user is consistently failing on defense (in addition to prioritizing staying alive and health), a suggestion could be to keep a close watch on the spike and go into defense rounds with strong economy (credits).
 
