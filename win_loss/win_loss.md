@@ -233,7 +233,7 @@ Please see [win_loss_applied](https://github.com/sophiacofone/omnic_ml/blob/main
 ##### Top 20 important features combined
 <img src="dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="400"/>
 
-Similar to the logistic regression model, these features indicate that from an overall perspective your team not dying, your opponents dying, and health are the most important predictors for wining rounds of Valorant. After those features, the model starts using credits, % map covered, assists, and elims. 
+Similar to the logistic regression model, these features indicate that from an overall perspective your team not dying, your opponents dying, and health are the most important predictors for wining rounds of Valorant.
 
 #### No deaths?
 I wanted to also see what without using deaths as a feature, could the model still predict well and what features it would pick.
@@ -257,7 +257,7 @@ I wanted to also see what without using deaths as a feature, could the model sti
 ##### Top 20 important features combined - no deaths
 <img src="dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="400"/>
 
-This model does not predict as well after pruning. After Health loss, this model also focuses on elims.
+This model does not predict as well after pruning. After Health loss, this model also focuses on elims, credits.
 
 ####  What should player's focus on to win a round of Valorant?: Attacking vs Defending
 Here, I stick with the same "stratified analysis" approach.
@@ -283,7 +283,7 @@ Please see [stratified_df](https://github.com/sophiacofone/omnic_ml/blob/main/wi
 ##### Top 20 important features combined: Attack
 <img src="dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="400"/>
 
-Similar to the analysis above, we see deaths/not dying/health as the best thing to focus on. However, we do see credits, elims, ability use, movement, and ammo.
+Similar to the analysis above, we see deaths/not dying/health as the best thing to focus on. However, we do see credits.
 
 ##### Metrics: Defend, tuned, no pruning
 | Metric         | Result   |
@@ -327,7 +327,7 @@ Here, we see some differences with spike_time, credits, shield, loadout value.
 ##### Top 20 important features combined: Pre-Spike
 <img src="dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="400"/>
 
-We still see deaths/health as big predictors, but we also see spike information, round length information, map covered, ammo, shield, credits.
+We still see deaths/health as big predictors, but we also see spike information.
 
 ##### Metrics: Post-spike, tuned, no pruning
 | Metric         | Result   |
@@ -348,16 +348,16 @@ We still see deaths/health as big predictors, but we also see spike information,
 ##### Top 20 important features combined: Post-Spike
 <img src="dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="400"/>
 
-We still see deaths/health as big predictors, but also attacking side, credits, ability assists, elims.
+We still see deaths/health as big predictors, but also credits information.
 
 ## Do strategies change depending on what "role" you are playing as?
 Lastly, after successfully showing that Valorant players can be classified into 4 roles (Valorant classes) based on gameplay alone, I became curious if this would alter strategy. So, I decided to do a final permutation where I break up my data into the 4 classes and try to predict match outcomes.
 
 ### Results: Log reg
-<img src="logreg_csv_feature_results/feat_vis_sentinels.png" alt="" width="400"/>
-<img src="logreg_csv_feature_results/feat_vis_controllers.png" alt="" width="400"/>
-<img src="logreg_csv_feature_results/feat_vis_duelists.png" alt="" width="400"/>
-<img src="logreg_csv_feature_results/feat_vis_initiators.png" alt="" width="400"/>
+<img src="logreg_csv_feature_results/feat_vis_sentinels.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_controllers.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_duelists.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_initiators.png" alt="" width="800"/>
 
 ##### Metrics: Sentinels
 | Metric         | Result   |
