@@ -84,9 +84,7 @@ After I was successfully able to classify players into the original Valorant cla
 <img src="logreg_csv_feature_results/feat_vis_duelists.png" alt="" width="800"/>
 <img src="logreg_csv_feature_results/feat_vis_initiators.png" alt="" width="800"/>
 
-Like the previous section, deaths and health reigned supreme as features to focus on. However, I was suprised there wasn't more varriation here. For example, I expected deulists to rely much more on elminations. It does make sense that inituationrs would be the most variable, as they are a very felxible role.
-
- seems like Duelists and Initiators should focus on more offensive/attacking features like Eliminations, Ammo. Sentinels also should prioritize Eliminations, but also credits. Finally, controllers should focus on Shield and Spike_time. I found this last one particularly interesting as controllers are known for "controlling the flow" of the game with their abilities. It's intriguing to see spike_time as an important feature for them (as well as shields, which didn't come up often).
+Like the previous section, deaths and health reigned supreme as features to focus on. However, I was surprised there wasn't more variation here. For example, I expected duelists to rely much more on eliminations. It does make sense that initiators would be the most variable, as they are a very flexible role. I am curious how more team information could change/influence this analysis. 
 
 ## Challenges / Limitations
 
@@ -95,6 +93,8 @@ Like the previous section, deaths and health reigned supreme as features to focu
 **Limited perspective:** Due to the nature of Omnic's data collection process, the data from each round of Valorant is from the perspective of the "active" player. The active player can see some information about teammates and opponents (like opponent eliminations, and teammate health), but the vast majority of the information is limited to only the active player. Given that Valorant is a cooperative game, this is an unfortunate limitation. The paper I referenced above uses data directly from Valorant's API, therefore the analysis is able to have a more comprehensive view of the game and the interactions between players.
 
 It is ultimately unknown how team-based data would impact my models/results. However, I hypothesize that my clustering idea may have worked better with a complete information space (or at least full teammate data). This incomplete perspective could also be why the win/loss classifier liked elimns, health, and death features so much (these are features that I had "more" information for).
+
+**Sparse Data**: Since I had a mix of categorical and numeric features, the data became some-what sparse after pre-processing. I think this likely had an impact on the unsupervised method, since clustering algorithms usually do not do well with sparse data. 
 
 ## Future work
 1. Once team-based data becomes available, I would like to try my unsupervised clustering idea again to see if this additional data would help.
