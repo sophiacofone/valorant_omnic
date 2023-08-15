@@ -408,10 +408,10 @@ Lastly, after successfully showing that Valorant players can be classified into 
 <img src="logreg_csv_feature_results/feat_vis_initiators.png" alt="" width="400"/>
 
 ### Results: Decision tree
-<img src="dtree_csv_feature_results/feat_vis_sentinels_4.png" alt="" width="400"/>
-<img src="dtree_csv_feature_results/feat_vis_controllers_4.png" alt="" width="400"/>
-<img src="dtree_csv_feature_results/feat_vis_duelists_4.png" alt="" width="400"/>
-<img src="dtree_csv_feature_results/feat_vis_initiators_4.png" alt="" width="400"/>
+<img src="dtree_csv_feature_results/feat_vis_sentinels_4.png" alt="" width="800"/>
+<img src="dtree_csv_feature_results/feat_vis_controllers_4.png" alt="" width="800"/>
+<img src="dtree_csv_feature_results/feat_vis_duelists_4.png" alt="" width="800"/>
+<img src="dtree_csv_feature_results/feat_vis_initiators_4.png" alt="" width="800"/>
 
 ##### Metrics: Sentinels, tuned, no pruning
 | Metric         | Result   |
@@ -432,8 +432,6 @@ Lastly, after successfully showing that Valorant players can be classified into 
 ##### Top 13 important features combined: Sentinels
 <img src="dtree_csv_feature_results/feat_vis_sentinels_4.png" alt="" width="400"/>
 
-Major Features are: Deaths, Health, Credits, Elims 
-
 ##### Metrics: Controllers, tuned, no pruning
 | Metric         | Result   |
 | -------------- | -------- |
@@ -452,8 +450,6 @@ Major Features are: Deaths, Health, Credits, Elims
 
 ##### Top 13 important features combined: Controllers
 <img src="dtree_csv_feature_results/feat_vis_controllers_4.png" alt="" width="400"/>
-
-Major Features are: Deaths, Health, Shield, Spike_time 
 
 ##### Metrics: Duelists, tuned, no pruning
 | Metric         | Result   |
@@ -474,8 +470,6 @@ Major Features are: Deaths, Health, Shield, Spike_time
 ##### Top 13 important features combined: Duelists
 <img src="dtree_csv_feature_results/feat_vis_duelists_4.png" alt="" width="400"/>
 
-Major Features are: Deaths, Health, Eliminations, Ammo 
-
 ##### Metrics: Initiators, tuned, no pruning
 | Metric         | Result   |
 | -------------- | -------- |
@@ -494,5 +488,3 @@ Major Features are: Deaths, Health, Eliminations, Ammo
 
 ##### Top 13 important features combined: Initiators
 <img src="dtree_csv_feature_results/feat_vis_initiators_4.png" alt="" width="400"/>
-
-Major Features are: Deaths, Health, Eliminations, Ammo 
