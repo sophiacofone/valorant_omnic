@@ -79,14 +79,14 @@ Unfortunately, this ended up being challenging. Despite having classification su
 ### Should your focus change depending on what "class" you are playing as?
 After I was successfully able to classify players into the original Valorant classes, I became curious if a players' class would impact strategy. Similar to the win_loss classification process, I subdivide my data and created a decision tree model (see [win_condition](https://github.com/sophiacofone/omnic_ml/blob/main/win_loss/win_loss.md) for details).
 
-| Data Sub-Set | Main Selected Features                                            |
-|--------------|--------------------------------------------------------------|
-| Sentinels          | Deaths, Health, Credits, Eliminations                                         |
-| Controllers    | Deaths, Health, Shield, Spike_time                                               |
-| Duelists       | Deaths, Health, Eliminations, Ammo 
-| Initiators       | Deaths, Health, Eliminations, Ammo |
+<img src="logreg_csv_feature_results/feat_vis_sentinels.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_controllers.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_duelists.png" alt="" width="800"/>
+<img src="logreg_csv_feature_results/feat_vis_initiators.png" alt="" width="800"/>
 
-Like the previous section, deaths and health reigned supreme as features to focus on. However, it seems like Duelists and Initiators should focus on more offensive/attacking features like Eliminations, Ammo. Sentinels also should prioritize Eliminations, but also credits. Finally, controllers should focus on Shield and Spike_time. I found this last one particularly interesting as controllers are known for "controlling the flow" of the game with their abilities. It's intriguing to see spike_time as an important feature for them (as well as shields, which didn't come up often).
+Like the previous section, deaths and health reigned supreme as features to focus on. However, I was suprised there wasn't more varriation here. For example, I expected deulists to rely much more on elminations. It does make sense that inituationrs would be the most variable, as they are a very felxible role.
+
+ seems like Duelists and Initiators should focus on more offensive/attacking features like Eliminations, Ammo. Sentinels also should prioritize Eliminations, but also credits. Finally, controllers should focus on Shield and Spike_time. I found this last one particularly interesting as controllers are known for "controlling the flow" of the game with their abilities. It's intriguing to see spike_time as an important feature for them (as well as shields, which didn't come up often).
 
 ## Challenges / Limitations
 
