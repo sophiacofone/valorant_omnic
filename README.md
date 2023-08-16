@@ -18,6 +18,8 @@ My goal is to formulate some of these claims into research questions, and use ma
     
 Much more detail into the background & context behind these questions is provided in the [win_condition](https://github.com/sophiacofone/omnic_ml/blob/main/win_loss/win_loss.md) and [role](https://github.com/sophiacofone/omnic_ml/blob/main/roles/roles.md) sections. 
 
+Presentation on high-level results:[slides](https://github.com/sophiacofone/omnic_ml/blob/main/Omnic_Valorant.pdf)
+
 ## About the Data
 The data for this project is provided by [Omnic Data ](https://www.omnic.ai/forge.html). Omnic Data is an AI based E-Sports coaching platform that uses computer vision to collect data from uploaded videos of E-sports matches. Omnic provided ~30k rounds of Valorant gameplay from professional Valorant streamers for this project. One of the main advantages of this dataset is it only includes professional players, hence we can expect less "noise" when compared to all user data. The data is organized as a time-series, where each event is captured with a timestamp.
 
