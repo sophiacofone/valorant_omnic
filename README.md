@@ -35,24 +35,24 @@ Then, I explored using both logistic regression and decision trees to try and cl
 These models were generally quite accurate, with test accuracy and F1 scores from 90%-95% depending on the permutation (see [win_condition](https://github.com/sophiacofone/omnic_ml/blob/main/win_loss/win_loss.md) for details). The summary of the feature importances are as follows:
 
 #### Logistic Regression
-<img src="logreg_csv_feature_results/feat_vis_all.png" alt="" width="800"/>
-<img src="logreg_csv_feature_results/feat_vis_no_deaths.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_all.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_no_deaths.png" alt="" width="800"/>
 
-<img src="logreg_csv_feature_results/feat_vis_attack.png" alt="" width="800"/>
-<img src="logreg_csv_feature_results/feat_vis_defend.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_attack.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_defend.png" alt="" width="800"/>
 
-<img src="logreg_csv_feature_results/feat_vis_prespike.png" alt="" width="800"/>
-<img src="logreg_csv_feature_results/feat_vis_postspike.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_prespike.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_postspike.png" alt="" width="800"/>
 
 #### Decision tree
-<img src="dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="800"/>
-<img src="dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="800"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="800"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="800"/>
 
-<img src="dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="800"/>
-<img src="dtree_csv_feature_results/feat_vis_defend_5.png" alt="" width="800"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="800"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_defend_5.png" alt="" width="800"/>
 
-<img src="dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="800"/>
-<img src="dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="800"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="800"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="800"/>
 
 Both models relied on death and health information no matter the permutation. These features indicate that from an overall perspective, your team not dying, your opponents dying, and health are the most important predictors for winning rounds of Valorant. This may seem obvious, but in Valorant there are multiple ways to win with elims/deaths being only one of them. These results could justify playing more "defensively", i.e. not dying versus trying to get lots of elims by taking risky moves.
 
@@ -65,6 +65,8 @@ In summary, the two models performed predominantly the same, although some of th
 Based on these results, I do think that the data shows that the high-level objective stays the same, but the finer-points of strategy does change depending on what's happening in the round (spike) and defense vs attack. 
 
 ### Is it possible to classify Valorant players into "classes" based solely on game-play data?
+<img src="roles/decision_tree_small.png" alt="" width="800"/>
+<img src="roles/features_dtree.png" alt="" width="800"/>
 
 For this question, I stuck with the decision tree model for the same reasons as the previous analysis (we care about the features, needs to be interpretable). Initially, running this model with all the data I had created highly accurate results (+95%). However, I noticed that my model used a lot of features that were essentially the players' "choice" (like user_id, the agent types of teammates, and the map). My interpretation of these initial results is that users have a preference for a class, and then select their class in relation to their teammates and the type of map. This makes sense, as it is common knowledge that certain classes are better for certain maps, and that it is good to have a "variety" of classes on a team.
 

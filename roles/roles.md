@@ -164,6 +164,9 @@ Similarly, I also wanted to exclude the opponents and allied agent information. 
 Finally, I excluded map information after this analysis. Following the same logic, map features indicate that players choose roles based on maps. Interesting, but I want to eliminate player "choices".
 
 #### Classifying Valorant Agents: No user ID, opponent characters, or map
+<img src="../roles/decision_tree_small.png" alt="" width="800"/>
+<img src="../roles/features_dtree.png" alt="" width="800"/>
+
 ##### Metrics: Tuned, no pruning
 | Metric         | Result   |
 | -------------- | -------- |
