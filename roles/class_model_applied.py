@@ -62,5 +62,7 @@ def prune_tree(csv_in,csv_out,min_samples_leaf,min_samples_split,max_depth):
 # run_decisiontree_process('roles/csv/df_no_chars.csv')
 # pruned,cols = prune_tree('roles/csv/df_no_chars.csv','df_role_import_dtree_no_chars_15.csv',1,2,15)
 
-# run_decisiontree_process('roles/csv/df_no_map.csv')
-# pruned,cols = prune_tree('roles/csv/df_no_map.csv','df_role_import_dtree_no_map_13.csv',1,5,13)
+run_decisiontree_process('roles/csv/df_no_map.csv')
+pruned,cols = prune_tree('roles/csv/df_no_map.csv','df_role_import_dtree_no_map_6.csv',1,5,13)
+
+vis_dtree(pruned, cols,'png')

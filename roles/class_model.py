@@ -6,7 +6,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 import matplotlib.pyplot as plt
-from sklearn.tree import plot_tree
+from sklearn import tree
+import graphviz 
 
 
 def d_tree(X_train,y_train,X_test,y_test):
@@ -39,11 +40,22 @@ def prune_dtree(X_train,y_train,X_test,y_test,min_samples_leaf,min_samples_split
     
     return dtc
 
+# def vis_dtree(dtc, columns,save_path):
+#     plt.figure(figsize=(12, 6))
+#     plot_tree(dtc, feature_names=columns, class_names=str(dtc.classes_), filled=True)
+#     plt.savefig(save_path, dpi=600, bbox_inches='tight')
+#     plt.show()
+
 def vis_dtree(dtc, columns,save_path):
-    plt.figure(figsize=(12, 6))
-    plot_tree(dtc, feature_names=columns, class_names=str(dtc.classes_), filled=True)
-    plt.savefig(save_path, dpi=600, bbox_inches='tight')
-    plt.show()
+    # DOT data
+    dot_data = tree.export_graphviz(dtc, out_file=None,
+                                    feature_names=columns,  
+                                    class_names=['Sentinels', ' Controllers', 'Duelists','Initiators'],
+                                    filled=True)
+
+    # Draw graph
+    graph = graphviz.Source(dot_data, format=save_path) 
+    graph.render("decision_tree")  
 
 def d_tree_tuning(X_train, y_train, X_test, y_test):
     param_grid = {
