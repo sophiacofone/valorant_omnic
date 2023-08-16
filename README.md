@@ -67,8 +67,8 @@ In summary, the two models performed predominantly the same, although some of th
 Based on these results, I do think that the data shows that the high-level objective stays the same, but the finer-points of strategy does change depending on what's happening in the round (spike) and defense vs attack. 
 
 ### Is it possible to classify Valorant players into "classes" based solely on game-play data?
-<img src="roles/decision_tree_small.png" alt="" width="800"/>
-<img src="roles/features_dtree.png" alt="" width="800"/>
+<img src="roles/decision_tree_small.png" alt="" width="400"/>
+<img src="roles/features_dtree.png" alt="" width="400"/>
 
 For this question, I stuck with the decision tree model for the same reasons as the previous analysis (we care about the features, needs to be interpretable). Initially, running this model with all the data I had created highly accurate results (+95%). However, I noticed that my model used a lot of features that were essentially the players' "choice" (like user_id, the agent types of teammates, and the map). My interpretation of these initial results is that users have a preference for a class, and then select their class in relation to their teammates and the type of map. This makes sense, as it is common knowledge that certain classes are better for certain maps, and that it is good to have a "variety" of classes on a team.
 
