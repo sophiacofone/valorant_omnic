@@ -37,24 +37,24 @@ Then, I explored using both logistic regression and decision trees to try and cl
 These models were generally quite accurate, with test accuracy and F1 scores from 90%-95% depending on the permutation (see [win_condition](https://github.com/sophiacofone/omnic_ml/blob/main/win_loss/win_loss.md) for details). The summary of the feature importances are as follows:
 
 #### Logistic Regression
-<img src="win_loss/logreg_csv_feature_results/feat_vis_all.png" alt="" width="800"/>
-<img src="win_loss/logreg_csv_feature_results/feat_vis_no_deaths.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_all.png" alt="" width="400"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_no_deaths.png" alt="" width="400"/>
 
-<img src="win_loss/logreg_csv_feature_results/feat_vis_attack.png" alt="" width="800"/>
-<img src="win_loss/logreg_csv_feature_results/feat_vis_defend.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_attack.png" alt="" width="400"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_defend.png" alt="" width="400"/>
 
-<img src="win_loss/logreg_csv_feature_results/feat_vis_prespike.png" alt="" width="800"/>
-<img src="win_loss/logreg_csv_feature_results/feat_vis_postspike.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_prespike.png" alt="" width="400"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_postspike.png" alt="" width="400"/>
 
 #### Decision tree
-<img src="win_loss/dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="800"/>
-<img src="win_loss/dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="800"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_all_5.png" alt="" width="400"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_no_deaths_5.png" alt="" width="400"/>
 
-<img src="win_loss/dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="800"/>
-<img src="win_loss/dtree_csv_feature_results/feat_vis_defend_5.png" alt="" width="800"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_attack_5.png" alt="" width="400"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_defend_5.png" alt="" width="400"/>
 
-<img src="win_loss/dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="800"/>
-<img src="win_loss/dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="800"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_pres_5.png" alt="" width="400"/>
+<img src="win_loss/dtree_csv_feature_results/feat_vis_posts_5.png" alt="" width="400"/>
 
 Both models relied on death and health information no matter the permutation. These features indicate that from an overall perspective, your team not dying, your opponents dying, and health are the most important predictors for winning rounds of Valorant. This may seem obvious, but in Valorant there are multiple ways to win with elims/deaths being only one of them. These results could justify playing more "defensively", i.e. not dying versus trying to get lots of elims by taking risky moves.
 
@@ -83,10 +83,10 @@ Unfortunately, this ended up being challenging. Despite having classification su
 ### Should your focus change depending on what "class" you are playing as?
 After I was successfully able to classify players into the original Valorant classes, I became curious if a players' class would impact strategy. Similar to the win_loss classification process, I subdivide my data and created a decision tree model (see [win_condition](https://github.com/sophiacofone/omnic_ml/blob/main/win_loss/win_loss.md) for details).
 
-<img src="logreg_csv_feature_results/feat_vis_sentinels.png" alt="" width="800"/>
-<img src="logreg_csv_feature_results/feat_vis_controllers.png" alt="" width="800"/>
-<img src="logreg_csv_feature_results/feat_vis_duelists.png" alt="" width="800"/>
-<img src="logreg_csv_feature_results/feat_vis_initiators.png" alt="" width="800"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_sentinels.png" alt="" width="400"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_controllers.png" alt="" width="400"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_duelists.png" alt="" width="400"/>
+<img src="win_loss/logreg_csv_feature_results/feat_vis_initiators.png" alt="" width="400"/>
 
 Like the previous section, deaths and health reigned supreme as features to focus on. However, I was surprised there wasn't more variation here. For example, I expected duelists to rely much more on eliminations. It does make sense that initiators would be the most variable, as they are a very flexible role. I am curious how more team information could change/influence this analysis. 
 
